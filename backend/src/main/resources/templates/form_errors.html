@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+
+<body>
+<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+	<div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+</div>
+	<script th:src="@{/bootstrap.min.js}"></script>
+</body>
+
+</html>

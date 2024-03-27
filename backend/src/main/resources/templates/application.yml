@@ -1,35 +1,13 @@
-#server:
-#  port: 8000
-#  servlet:
-#    context-path: /blog
-#    encoding:
-#      charset: UTF-8
-#      enabled: true
-#      force: true
-#    
-#spring:
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/views/
-#      suffix: .jsp
-#      
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
-#    username: deannn
-#    password: deannn123
-#    
-#  jpa:
-#    open-in-view: true
-#    hibernate:
-#      ddl-auto: create
-#      naming:
-#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-#      use-new-id-generator-mappings: false
-#    show-sql: true
-#    properties:
-#      hibernate.format_sql: true
-#
-#  jackson:
-#    serialization:
-#      fail-on-empty-beans: false
+spring:
+  application:
+    name: wfltest
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/wfl_test
+    username: root
+    password: 1234
+mybatis:
+  mapper-locations: mybatis-mapper/*.xml
+  type-aliases-package: com.wfl.test.user
+server:
+  port: 8080

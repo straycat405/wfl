@@ -1,18 +1,21 @@
-import React from "react";
-import "./App.css";
-import Home from "./Home";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import GroupList from "./GroupList";
-import GroupEdit from "./GroupEdit";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import MainPage from './pages/Main.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import BootTest from './pages/BootTest.jsx';
+import SignUpPage from './pages/SignUpPage.jsx';
+import TestPage from './pages/TestPage.jsx';
 
-export default function App() {
+const router = createBrowserRouter([
+  { path: '/main' , element: <MainPage/> } ,
+  { path: '/boottest', element: <BootTest/>} ,
+  { path: '/signup', element: <SignUpPage/> } ,
+  { path: '/login', element: <LoginPage/> },
+  { path: '/test', element: <TestPage/> },
+]);
+
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/groups" exact={true} element={<GroupList />} />
-		<Route path='/groups/:id' element={<GroupEdit />} />
-      </Routes>
-    </Router>
+    <RouterProvider router={router}/>
   );
 }
+export default App

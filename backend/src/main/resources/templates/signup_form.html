@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+
+<body>
+	
+	<div class="container my-3">
+	<div class="my-3 border-bottom">
+		<div>
+			<h4>회원가입</h4>
+		</div>
+	</div>
+	<form th:action="@{/user/signup}" th:object="${userDTO}" method="post">
+		<div class="mb-3">
+			<label for="username" class="form-label">이메일주소</label>
+			<input type="text" th:field="*{userId}" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="password1" class="form-label">비밀번호</label>
+			<input type="password" th:field="*{userPw1}" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="password2" class="form-label">비밀번호 확인</label>
+			<input type="password" th:field="*{userPw2}" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="email" class="form-label">닉네임</label>
+			<input type="email" th:field="*{userNickname}" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="text" class="form-label">휴대폰번호</label>
+			<input type="text" th:field="*{userPhone}" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-primary">회원가입</button>
+	</form>
+</div>
+
+</body>
+
+</html>
