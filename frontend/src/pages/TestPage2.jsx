@@ -1,66 +1,52 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import React, { useState } from 'react';
 
-function SignUp(){
+export default function TestPage2() {
 
-    const baseUrl = "http://localhost:8080";
+  const baseUrl = "http://localhost:8080";
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-function posting() {
+  const handleEmailCheck = () => {
+    // 이메일 중복 확인 로직
+    console.log('중복 확인');
+  };
 
-  console.log(email);
-  console.log(password);
-  console.log(name);
-  console.log(phoneNumber);
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-axios({
-    method: "POST",
-    url: baseUrl + "/post-test",
-    data: {
-      "userEmail": email,
-      "userPw": password,
-      "userName": name,
-      "userPhone": phoneNumber
-    },
-    headers: {'Content-type': 'application/json'}
-}).then((res)=>{
-    alert("성공");
-    // API로 부터 받은 데이터 출력
-    console.log(res.data);
-}).catch(error=>{
-    console.log("실패");
-    console.log(error);
-});
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 회원가입 로직
+    console.log('회원가입');
+  };
 
-}
+  async function submitSignup() {
+    await axios
+    .post(baseUrl + "/post-test" ,
+    {"userEmail":email,
+      "userPw":password,
+      "userName":name,
+      "userPhone":phoneNumber
+    })
+    .then((res) => {
+      alert("서버에서 받은 데이터\n" + JSON.stringify(res.data))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+  }
 
 
-  
-    const handleEmailCheck = () => {
-      // 이메일 중복 확인 로직
-      console.log('중복 확인');
-    };
-  
-    const handlePasswordVisibility = () => {
-      setShowPassword(!showPassword);
-    };
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // 회원가입 로직
-      console.log('회원가입');
-    };
-    
-  return (
-
-    <div>
+    return(
+      <div>
       <h2>소셜계정으로 3초 가입하기</h2>
       <div>
         <button>구글</button>
@@ -134,10 +120,9 @@ axios({
           </select>
           <button type="button">통신사 인증</button>
         </div>
-        <button type="submit" onClick={posting}>회원가입</button>
+        <button type="submit" onClick={submitSignup}>회원가입</button>
       </form>
     </div>
 
-  ) ;
+    );
 }
-export default SignUp;

@@ -12,7 +12,7 @@ export default function Navbar2() {
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><Link class="nav-link axtive" aria-currenc="page" to='/main'>Home</Link></li>
                         <li class="nav-item"><Link class="nav-link axtive" aria-currenc="page" to='/main'>Login</Link></li>
-                        <li class="nav-item"><Link class="nav-link axtive" aria-currenc="page" to='/main'>Sign-Up</Link></li>
+                        <li class="nav-item"><Link class="nav-link axtive" aria-currenc="page" to='/signup'>Sign-Up</Link></li>
                     </ul>
                 </div>
             </div>

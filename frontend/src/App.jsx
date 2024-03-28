@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import BootTest from './pages/BootTest.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import TestPage from './pages/TestPage.jsx';
+import TestPage2 from './pages/TestPage2.jsx';
+import TestPage3 from './pages/TestPage3.jsx';
 
 const router = createBrowserRouter([
   { path: '/main' , element: <MainPage/> } ,
@@ -11,6 +13,8 @@ const router = createBrowserRouter([
   { path: '/signup', element: <SignUpPage/> } ,
   { path: '/login', element: <LoginPage/> },
   { path: '/test', element: <TestPage/> },
+  { path: '/test2', element: <TestPage2/> },
+  { path: '/test3', element: <TestPage3/> },
 ]);
 
 function App() {
