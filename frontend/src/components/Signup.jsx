@@ -22,7 +22,7 @@ function posting() {
 
 axios({
     method: "POST",
-    url: baseUrl + "/post-test",
+    url: baseUrl + "/signupConfirm",
     data: {
       "userEmail": email,
       "userPw": password,

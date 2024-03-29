@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wfl.mbtest.user.UserMapper">
+	
+	<select id="getAll" resultType="user">
+        SELECT * FROM USER
+	</select>
+	
+	<insert id="registerUser" parameterType="user"> 
+        INSERT INTO USER (userEmail, userPw, userName, userNickname, userPhone) 
+        	VALUES (#{userEmail}, #{userPw}, #{userName}, '기본닉네임', #{userPhone}) 
+    </insert>
+</mapper>
