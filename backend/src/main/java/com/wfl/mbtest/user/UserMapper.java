@@ -14,4 +14,5 @@ public interface UserMapper {
 
 	ArrayList<User> getAll();
 	int registerUser(User user);
+	int emailCheck(User user);
 }

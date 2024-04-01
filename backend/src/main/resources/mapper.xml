@@ -11,4 +11,8 @@
         INSERT INTO USER (userEmail, userPw, userName, userNickname, userPhone) 
         	VALUES (#{userEmail}, #{userPw}, #{userName}, '기본닉네임', #{userPhone}) 
     </insert>
+    
+    <select id="emailCheck" parameterType="user" resultType="Integer">
+		SELECT COUNT(*) AS COUNT FROM USER WHERE userEmail LIKE #{userEmail};
+	</select>
 </mapper>

@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 	
@@ -39,9 +39,15 @@ public class UserController {
 		System.out.println(user.getUserName());
 		System.out.println(user.getUserPhone());
 		
-		userService.registerUser(user);
+		int result = userService.registerUser(user);
 
-		return "통신 성공";
+		if (result <= 0) {
+			return "회원가입 실패";
+		}
+		
+		System.out.println("가입 결과 :" + result);
+		
+		return "회원가입 성공";
 	}
 	
 	@GetMapping("/findall")
@@ -58,6 +64,18 @@ public class UserController {
 		System.out.println(json);
 		
 		return json;
+	}
+	
+	// 이메일 중복확인
+	@PostMapping("/signupEmailCheck")
+	public int emailCheck(HttpServletRequest request, @RequestBody User user) {
+		System.out.println("UserController.signupEmailCheck");
+		System.out.println(user.getUserEmail());
+		
+		int result = userService.emailCheck(user);
+		System.out.println("검색된 이메일 수 : " + result);
+		
+		return result;
 	}
 
 }

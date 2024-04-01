@@ -25,5 +25,10 @@ public class UserService {
 		System.out.println("UserService.registerUser()");
 		return userMapper.registerUser(user);
 	}
+	
+	public int emailCheck(User user) {
+		System.out.println("UserService.emailCheck()");
+		return userMapper.emailCheck(user);
+	}
 
 }
