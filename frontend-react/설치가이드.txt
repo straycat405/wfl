@@ -97,3 +97,7 @@ npm i -d crypto-js
 
  const hash = SHA256(password).toString(); 같은 방식으로 변수 설정 후 사용
 
+8. tailwindform 추가
+
+npm install @tailwindcss/forms
+

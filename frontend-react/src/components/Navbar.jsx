@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+
+//HeadlessUi 사용을 위한 함수
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 
 
 export default function Navbar() {
 
-  let loginedUser = JSON.parse(localStorage.getItem('loginedUser'));
+  let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
 
   const navigate = useNavigate();
 
@@ -35,7 +44,7 @@ export default function Navbar() {
       }
     } else {
       if (confirm("로그아웃 하시겠습니까?") == true ) {
-        localStorage.clear();
+        sessionStorage.clear();
         navigate("/");
       } else {
         return false;
@@ -59,20 +68,61 @@ export default function Navbar() {
         <span
             className="font-medium text-gray-600 "
           >
-            {loginedUser ? "접속중인 사용자명 : " + loginedUser.userName : null}
+            {loginedUser ? "접속중인 사용자명 : " + loginedUser.userNickname : null}
           </span>
           <button
-            className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
             onClick={toLogout}
           >
             {loginedUser !== null ? 'Logout' : 'Login'}
           </button>
           <button
-            className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
             onClick={toSignupPage}
           >
             {loginedUser !== null ? 'Mypage' : 'Signup'}
           </button>
+          {/* /// */}
+          <Menu as="div" className="relative inline-block text-left">
+      <div>
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600">
+          Options
+          <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+        </Menu.Button>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  to="/accountSetting"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Account settings
+                </Link>
+              )}
+            </Menu.Item>
+
+
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+
+          {/* /// */}
         </div>
       </nav>
     </header>

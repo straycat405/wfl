@@ -7,9 +7,13 @@
         SELECT * FROM USERLIST
 	</select>
 	
+	<select id="getUser" resultType="user">
+		SELECT * FROM USERLIST WHERE userId=#{userId}
+	</select>
+	
 	<insert id="registerUser" parameterType="user"> 
         INSERT INTO USERLIST (userEmail, userPw, userName, userNickname, userPhone) 
-        	VALUES (#{userEmail}, #{userPw}, #{userName}, '기본닉네임', #{userPhone}) 
+        	VALUES (#{userEmail}, #{userPw}, #{userName}, #{userNickname}, #{userPhone}) 
     </insert>
     
     <select id="emailCheck" parameterType="user" resultType="Integer">
@@ -31,6 +35,11 @@
 	<update id="resetPw" parameterType="user">
 		UPDATE USERLIST SET userPw=#{userPw},userModDate=NOW()
 				 WHERE userEmail = #{userEmail} and userName = #{userName} and userPhone = #{userPhone}
+	</update>
+	
+	<update id="modifyUser" parameterType="user">
+		UPDATE USERLIST SET userEmail=#{userEmail} ,userModDate=NOW()
+				 WHERE userId = #{userId}
 	</update>
 	
 </mapper>

@@ -49,5 +49,15 @@ public class UserService {
 		System.out.println("UserService.resetPwConfirm");
 		return userMapper.resetPw(user);
 	}
+	
+	public int modifyConfirm(User user) {
+		System.out.println("UserService.modifyConfirm()");
+		return userMapper.modifyUser(user);
+	}
+	
+	public User getUser(int userId) {
+		System.out.println("UserService.getUser()");
+		return userMapper.getUser(userId);
+	}
 
 }

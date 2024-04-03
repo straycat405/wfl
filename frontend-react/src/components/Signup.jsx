@@ -14,6 +14,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
+  const [nickName, setNickName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailChecked, setEmailChecked] = useState(false);
   const [pwChecked, setPwChecked] = useState(false);
@@ -33,14 +34,14 @@ function SignUp() {
             userEmail: email,
             userPw: hash,
             userName: name,
+            userNickname: nickName,
             userPhone: phoneNumber,
           },
           headers: { "Content-type": "application/json" },
         })
           .then((res) => {
-            alert("성공");
+            alert("회원가입 성공");
             // API로 부터 받은 데이터 출력
-            console.log(res.data);
             navigate("/signupSuccess");
           })
           .catch((error) => {
@@ -62,6 +63,28 @@ function SignUp() {
           alert ("비밀번호가 일치하지 않습니다.");
         }
       }
+  }
+
+  //닉네임 미입력시 무작위 닉네임 지정
+
+  const nicknameMaker = () => {
+
+    const adjective = ['고독한','신나는','센치한','즐거운','웃는','우는','심심한','멋진',]
+    const color = ['빨간','파란','노란','초록','하얀','검정','보라색','은빛','금빛']
+    const animal = ['고양이','강아지','참새','병아리','돌고래','기린','코끼리','나무늘보']
+
+    const adjectiveIndex = Math.floor(Math.random()*adjective.length);  
+    const colorIndex = Math.floor(Math.random()*color.length);
+    const animalIndex = Math.floor(Math.random()*animal.length);
+    const lastNum1 = Math.floor(Math.random()*10);
+    const lastNum2 = Math.floor(Math.random()*10);
+    const lastNum3 = Math.floor(Math.random()*10);
+
+    return adjective[adjectiveIndex] + color[colorIndex] + animal[animalIndex] + lastNum1 + lastNum2 + lastNum3
+  }
+
+  function setRandomNickName() {
+    setNickName(nicknameMaker());
   }
 
   //이메일 중복 확인 로직
@@ -161,7 +184,6 @@ function SignUp() {
                           validatePassword(event.target.value);
                         }}
                         required 
-                        minlength="8" maxlength="20"
                         />
 
                   <input 
@@ -175,7 +197,6 @@ function SignUp() {
                           validatePassword(event.target.value);
                         }}
                         required 
-                        minlength="8" maxlength="20"
                         />
                   <p id="password-validation-message"
                     className={confirmStyle}></p>
@@ -192,12 +213,25 @@ function SignUp() {
                   <input 
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
+                        name="Email"
+                        placeholder="닉네임"
+                        value={nickName}
+                        onChange={(event) => setNickName(event.target.value)}
+                        required />
+                    <button type="button"
+                            className="inline-flex py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            onClick={setRandomNickName}>
+                       무작위 닉네임 생성
+                   </button>
+
+                  <input 
+                        type="text"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="phone"
                         placeholder="휴대폰 번호"
                         value={phoneNumber}
                         onChange={(event) => setPhoneNumber(event.target.value)}
                         required 
-                        pattern="[0-9]{11}"
                         />
 
                     <button

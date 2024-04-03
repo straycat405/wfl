@@ -94,7 +94,6 @@ export default function ResetPw() {
                           validatePassword(event.target.value);
                         }}
                         required 
-                        minlength="8" maxlength="20"
                         />
 
                   <input 
@@ -108,7 +107,6 @@ export default function ResetPw() {
                           validatePassword(event.target.value);
                         }}
                         required 
-                        minlength="8" maxlength="20"
                         />
                   <p id="password-validation-message"
                     className={confirmStyle}></p>

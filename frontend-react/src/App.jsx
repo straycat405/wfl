@@ -12,6 +12,7 @@ import FindIdPage from './pages/FindIdPage.jsx';
 import FindPwPage from './pages/FindPwPage.jsx';
 import ResetPwPage from './pages/ResetPwPage.jsx';
 import "preline/preline.js";
+import AccountSettingPage from './pages/AccountSettingPage.jsx';
 
 const router = createBrowserRouter([
   { errorElement: <ErrorPage /> } , //에러페이지 설정
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
   { path: '/test2', element: <TestPage2/> },
   { path: '/test3', element: <TestPage3/> },
   { path: '/signupSuccess', element: <SignUpSuccess/> },
+  { path: '/accountSetting', element: <AccountSettingPage/> },
   { path: '/error', element: <ErrorPage /> },
 
 ]);

@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 
 export default function LoginSuccess() {
 
-    let loginedUser = JSON.parse(localStorage.getItem('loginedUser'));
+    let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
 
   return (
     <>

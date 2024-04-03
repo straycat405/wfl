@@ -18,4 +18,6 @@ public interface UserMapper {
 	User findUserEmail(User user);
 	User findUserPw(User user);
 	int resetPw(User user);
+	int modifyUser(User user);
+	User getUser(int userId);
 }

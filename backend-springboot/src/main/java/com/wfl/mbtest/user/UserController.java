@@ -88,6 +88,8 @@ public class UserController {
 		System.out.println("UserController.loginConfirm()");
 		
 		User loginedUser = userService.loginCheck(user);
+		// 프론트의 localstorage 보안을 위한 Pw삭제
+		loginedUser.setUserPw(null);
 		
 		System.out.println("로그인 시도 유저 이메일 :" + loginedUser);
 		
@@ -132,5 +134,23 @@ public class UserController {
 		int resetUser = userService.resetPwConfirm(user);
 		
 		return resetUser;
+	}
+	
+	@PostMapping("/modifyConfirm")
+	public String modifyConfirm(HttpServletRequest request, @RequestBody User user) {
+		System.out.println("UserController.modifyConfirm()");
+		
+		int userId = user.getUserId();
+		
+		int modifiedUserCheck = userService.modifyConfirm(user);
+		User modifiedUserData = userService.getUser(userId);
+		
+		if (modifiedUserCheck != 1) {
+			return "유저 정보 수정 실패";
+		} else {
+			String json = new Gson().toJson(modifiedUserData);
+			modifiedUserData.setUserPw(null);
+			return json;
+		}
 	}
 }

@@ -42,8 +42,11 @@ export default function Login() {
                 if (res.data !== null) {
                 console.log(res.data);
                 alert("로그인 성공");
-                localStorage.clear();
-                localStorage.setItem('loginedUser', JSON.stringify(res.data));
+                // sessionStorage 초기화
+                sessionStorage.clear();
+                // sessionStorage에 백에서 받아온 유저정보 String으로 저장 (json형식)
+                sessionStorage.setItem('loginedUser', JSON.stringify(res.data));
+
                 navigate("/loginSuccess");
             } else {
                 alert("로그인 실패 : 이메일과 비밀번호를 확인해주세요.");
