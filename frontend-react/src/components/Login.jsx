@@ -47,12 +47,23 @@ export default function Login() {
                 // sessionStorage에 백에서 받아온 유저정보 String으로 저장 (json형식)
                 sessionStorage.setItem('loginedUser', JSON.stringify(res.data));
 
-                navigate("/loginSuccess");
+                let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
+                // sessionStorage의 adminAuth값이 0이면 일반사용자, 1이면 관리자
+                if (loginedUser.adminAuth == 1) {
+                  navigate("/admin/main");
+                } else {
+                  navigate("/loginSuccess");
+                }
+
+                
             } else {
                 alert("로그인 실패 : 이메일과 비밀번호를 확인해주세요.");
             }
               })
               .catch((error) => {
+                alert("로그인 실패 : 이메일과 비밀번호를 확인해주세요.");
+                setEmail("");
+                setPassword("");
                 console.log("회원가입 오류 발생\n 오류 내용 : " + error);
                 console.log(error);
               });

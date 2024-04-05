@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import defaultImg from "../assets/images/defaultprofile.jpg";
@@ -11,13 +11,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-
-
-
-
-
-
-export default function Navbar() {
+export default function AdminNavbar() {
 
   let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
 
@@ -76,6 +70,7 @@ export default function Navbar() {
     }
   }
 
+
   return (
     <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 dark:bg-gray-800">
       <nav
@@ -89,6 +84,7 @@ export default function Navbar() {
           WFL
         </Link>
         {/* 테스트 */}
+        <p> 관리자 페이지 </p>
         {/*  */}
         <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:ps-5">
         <img src={profile} alt="profile" className={profileSet}/>
@@ -104,17 +100,11 @@ export default function Navbar() {
           >
             {loginedUser !== null ? 'Logout' : 'Login'}
           </button>
-          <button
-            className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
-            onClick={toSignupPage}
-          >
-            {loginedUser !== null ? 'Mypage' : 'Signup'}
-          </button>
           {/* /// */}
           <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600">
-          Options
+          관리자 메뉴
           <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -139,12 +129,23 @@ export default function Navbar() {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Account settings
+                  계정 설정
                 </Link>
               )}
             </Menu.Item>
-
-
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  to="/userManagement"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  사용자 관리
+                </Link>
+              )}
+            </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>

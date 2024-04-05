@@ -38,8 +38,17 @@
 	</update>
 	
 	<update id="modifyUser" parameterType="user">
-		UPDATE USERLIST SET userEmail=#{userEmail} ,userModDate=NOW()
+		UPDATE USERLIST SET userEmail=#{userEmail}, userName=#{userName}, userNickname=#{userNickname},userPhone=#{userPhone} ,userModDate=NOW()
 				 WHERE userId = #{userId}
 	</update>
+	
+	<update id="setProfile" parameterType="user">
+		UPDATE USERLIST SET userProfile=#{userProfile} ,userModDate=NOW()
+				 WHERE userId = #{userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="Integer">
+		DELETE FROM USERLIST WHERE userId = #{userId}
+	</delete>
 	
 </mapper>

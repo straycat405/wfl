@@ -59,5 +59,15 @@ public class UserService {
 		System.out.println("UserService.getUser()");
 		return userMapper.getUser(userId);
 	}
+	
+	public int setProfile(User user) {
+		System.out.println("UserService.setProfile()");
+		return userMapper.setProfile(user);
+	}
+	
+	public int deleteUser(int userId) {
+		System.out.println("UserService.deleteUser()");
+		return userMapper.deleteUser(userId);
+	}
 
 }

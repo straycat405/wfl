@@ -20,4 +20,6 @@ public interface UserMapper {
 	int resetPw(User user);
 	int modifyUser(User user);
 	User getUser(int userId);
+	int setProfile(User user);
+	int deleteUser(int userId);
 }

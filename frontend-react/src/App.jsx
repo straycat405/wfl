@@ -13,8 +13,12 @@ import FindPwPage from './pages/FindPwPage.jsx';
 import ResetPwPage from './pages/ResetPwPage.jsx';
 import "preline/preline.js";
 import AccountSettingPage from './pages/AccountSettingPage.jsx';
+import LogoutPage from './pages/LogoutPage.jsx';
+import AdminMain from './components/AdminMain.jsx';
+import UserManagementPage from './pages/UserManagementPage.jsx';
 
 const router = createBrowserRouter([
+
   { errorElement: <ErrorPage /> } , //에러페이지 설정
   { path: '/' , element: <MainPage/> } ,
   { path: '/signup', element: <SignUpPage/> } ,
@@ -29,6 +33,9 @@ const router = createBrowserRouter([
   { path: '/signupSuccess', element: <SignUpSuccess/> },
   { path: '/accountSetting', element: <AccountSettingPage/> },
   { path: '/error', element: <ErrorPage /> },
+  { path: '/logout', element: <LogoutPage />},
+  { path: '/admin/main', element: <AdminMain />},
+  { path: '/userManagement', element: <UserManagementPage />}
 
 ]);
 

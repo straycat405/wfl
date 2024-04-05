@@ -101,3 +101,18 @@ npm i -d crypto-js
 
 npm install @tailwindcss/forms
 
+9. headlessui 추가 ( 드롭다운 메뉴 기능 )
+
+npm i @headlessui/react
+
+10. reacttable - 리액트용 테이블 플러그인
+
+npm i react-table --save
+
+11. react table 2
+
+npm install @tanstack/react-table
+
+12. faker - 리액트에 랜덤 데이터 생성 ** 테스트때만 사용
+
+npm i faker
