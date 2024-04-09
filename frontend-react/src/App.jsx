@@ -16,6 +16,7 @@ import AccountSettingPage from './pages/AccountSettingPage.jsx';
 import LogoutPage from './pages/LogoutPage.jsx';
 import AdminMain from './components/AdminMain.jsx';
 import UserManagementPage from './pages/UserManagementPage.jsx';
+import UserLedgerListPage from './pages/UserLedgerListPage.jsx';
 
 const router = createBrowserRouter([
 
@@ -35,7 +36,8 @@ const router = createBrowserRouter([
   { path: '/error', element: <ErrorPage /> },
   { path: '/logout', element: <LogoutPage />},
   { path: '/admin/main', element: <AdminMain />},
-  { path: '/userManagement', element: <UserManagementPage />}
+  { path: '/userManagement', element: <UserManagementPage />},
+  { path: '/mypage', element: <UserLedgerListPage/>}
 
 ]);
 

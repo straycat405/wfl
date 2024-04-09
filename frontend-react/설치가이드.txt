@@ -113,6 +113,18 @@ npm i react-table --save
 
 npm install @tanstack/react-table
 
-12. faker - 리액트에 랜덤 데이터 생성 ** 테스트때만 사용
+12. react pagenation - 게시판 페이지네이션 라이브러리
 
-npm i faker
+npm install react-js-pagination
+
+13. react-icon : 리액트용 아이콘 라이브러리
+
+npm install react-icons --save
+
+14. styled-component - 특정 요소들 개별 스타일링 용도
+
+npm install styled-components
+
+15. react-modal (모달창 사용)
+
+npm install react-modal

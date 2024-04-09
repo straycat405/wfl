@@ -1,6 +1,7 @@
 package com.wfl.mbtest.user;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,11 @@ public class UserService {
 	public int deleteUser(int userId) {
 		System.out.println("UserService.deleteUser()");
 		return userMapper.deleteUser(userId);
+	}
+	
+	public ArrayList<User> searchUser(Map<String,Object> map) {
+		System.out.println("UserService.searchUser()");
+		return userMapper.searchUser(map);
 	}
 
 }

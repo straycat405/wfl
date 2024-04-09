@@ -3,6 +3,8 @@ package com.wfl.mbtest.user;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +98,8 @@ public class UserController {
 		
 		User loginedUser = userService.loginCheck(user);
 		// 프론트의 localstorage 보안을 위한 pw 삭제
+		System.out.println(loginedUser.getUserRegDate());
+		
 		loginedUser.setUserPw(null);
 		loginedUser.setUserRegDate(null);
 		loginedUser.setUserModDate(null);
@@ -182,6 +186,7 @@ public class UserController {
 	
 	public String saveImage(MultipartFile file, int userId) {
 		// 파일 저장 경로 설정 (프론트엔드 - src - assets - profileimages)
+		// 작업환경마다 맞게 세팅해주셔야 정상작동됩니다
 		String filePath = "D:\\team\\my-project\\src\\assets\\profileimages\\";
 		
 		// 파일 이름 변경
@@ -227,5 +232,30 @@ public class UserController {
 		
 		userService.deleteUser(userId);
 		return "";
+	}
+	
+	// 관리자 검색
+	@PostMapping("/api/searchUser")
+	public String searchUser (@RequestParam("category") String category,
+								@RequestParam("value") String value) {
+		
+		System.out.println("UserController.searchUser()");
+		
+		System.out.println("검색할 카테고리 : " + category);
+		System.out.println("검색할 키워드 : " + value);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("category", category);
+		map.put("value", value);
+		
+		ArrayList<User> searchedUser = userService.searchUser(map);
+		
+		for (int i=0; i < searchedUser.size() ; i++ )
+		System.out.println("검색 결과 유저 ID : " + searchedUser.get(i).getUserId());
+		
+		String json = new Gson().toJson(searchedUser);
+		
+		return json;
 	}
 }

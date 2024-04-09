@@ -1,6 +1,7 @@
 package com.wfl.mbtest.user;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.type.Alias;
@@ -22,4 +23,5 @@ public interface UserMapper {
 	User getUser(int userId);
 	int setProfile(User user);
 	int deleteUser(int userId);
+	ArrayList<User> searchUser(Map<String,Object> map);
 }

@@ -1,0 +1,52 @@
+1. USERLIST
+
+- 사용자 정보 테이블
+
+@생성 (H2 DB 기준)
+
+CREATE TABLE USERLIST (
+   userId   INT   NOT NULL AUTO_INCREMENT,
+   userEmail VARCHAR(100)   NOT NULL,
+   userPw   VARCHAR(100)   NOT NULL,
+   userName   VARCHAR(20)   NOT NULL,
+   userNickname   VARCHAR(20)   NOT NULL,
+   userProfile   VARCHAR(255),
+   userRegDate VARCHAR NOT NULL  DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:mm:ss'),
+   userModDate   VARCHAR,
+   userPhone   VARCHAR(30)   NOT NULL,
+   userPremium   INTEGER   DEFAULT 0,
+   adminAuth   INTEGER   DEFAULT 0,
+   userResign   INTEGER   DEFAULT 0,
+   PRIMARY KEY (userId)
+);
+
+* userRegDate / userModDate 생성, 수정시  
+DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:mm:ss') 포맷 처리
+
++ 스프링부트에서 VO에 자료형 DATE말고 String쓸것 (깔끔하게 나옴)
+
+
+2. LEDGER
+
+- 접속중인 사용자의 가계부 리스트 조회
+
+CREATE TABLE LEDGER (
+  ledgerId INTEGER NOT NULL AUTO_INCREMENT,
+  userId INTEGER NOT NULL,
+  ledgerName VARCHAR(100) NOT NULL,
+  ledgerRegDate DATETIME NOT NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:mm:ss'),
+  ledgerModDate DATETIME NULL,
+  ledgerMemo VARCHAR(200) NULL
+);
+
+ALTER TABLE `LEDGER` ADD CONSTRAINT `PK_LEDGER` PRIMARY KEY (
+	`ledgerId`
+);
+
+
+
+///
+
+UPDATE
+
+UPDATE 테이블명 SET 필드명='변경할값' WHERE 필드명=해당값;

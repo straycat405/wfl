@@ -11,12 +11,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-
-
-
-
-
-
 export default function Navbar() {
 
   let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
