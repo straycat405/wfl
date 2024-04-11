@@ -17,6 +17,10 @@ import LogoutPage from './pages/LogoutPage.jsx';
 import AdminMain from './components/AdminMain.jsx';
 import UserManagementPage from './pages/UserManagementPage.jsx';
 import UserLedgerListPage from './pages/UserLedgerListPage.jsx';
+import LedgerDetailPage from './pages/LedgerDetailPage.jsx';
+import SpendingPage from './pages/SpendingPage.jsx';
+import IncomingPage from './pages/IncomingPage.jsx';
+import LedgerMain from './components/LedgerMain.jsx';
 
 const router = createBrowserRouter([
 
@@ -37,7 +41,12 @@ const router = createBrowserRouter([
   { path: '/logout', element: <LogoutPage />},
   { path: '/admin/main', element: <AdminMain />},
   { path: '/userManagement', element: <UserManagementPage />},
-  { path: '/mypage', element: <UserLedgerListPage/>}
+  { path: '/mypage', element: <UserLedgerListPage/>},
+  { path: '/ledger/:userEmail', element: <LedgerMain />,
+    children: [
+      { path: 'spending' , element: <SpendingPage />},
+      { path: 'incoming', element: <IncomingPage />} 
+    ]}
 
 ]);
 

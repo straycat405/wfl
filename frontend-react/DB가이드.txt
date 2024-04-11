@@ -43,6 +43,79 @@ ALTER TABLE `LEDGER` ADD CONSTRAINT `PK_LEDGER` PRIMARY KEY (
 	`ledgerId`
 );
 
+3. SPENDING
+
+CREATE TABLE `SPENDING` (
+	`spendingId`	INTEGER	NOT NULL AUTO_INCREMENT,
+	`userId`	INTEGER	NOT NULL,
+	`spendingTime`	DATETIME	NOT NULL	DEFAULT (CURRENT_TIMESTAMP),
+	`spendingAmount`	INTEGER	NOT NULL,
+	`spendingWhy`	VARCHAR(100)	NULL,
+	`spendingCategory1`	INTEGER	NOT NULL,
+	`spendingCategory2`	INTEGER	NULL,
+	`spendingMethodId`	INTEGER	NOT NULL,
+	`spendingMemo`	VARCHAR(100)	NULL
+);
+
+ALTER TABLE `SPENDING` ADD CONSTRAINT `PK_SPENDING` PRIMARY KEY (
+	`spendingId`
+);
+
+@@ EXAMPLE
+
+INSERT INTO SPENDING (ledgerId, categorySpendingId, spendingList, spendingAmount, spendingWhy, spendingMemo)
+VALUES (16,1,'현금',50000,'축의금',null);
+
+4. INCOME
+
+CREATE TABLE `INCOMING` (
+	`incomingId`	INTEGER	NOT NULL AUTO_INCREMENT,
+	`userId`	INTEGER	NOT NULL,
+	`incomingTime`	DATETIME	NOT NULL	DEFAULT (CURRENT_TIMESTAMP),
+	`incomingAmount`	INTEGER	NOT NULL,
+	`incomingWhy`	VARCHAR(100)	NULL,
+	`incomingCategory1`	INTEGER	NOT NULL,
+	`incomingCategory2`	INTEGER	NULL,
+	`incomingMethodId`	INTEGER	NOT NULL,
+	`incomingMemo`	VARCHAR(100)	NULL
+);
+
+ALTER TABLE `INCOMING` ADD CONSTRAINT `PK_INCOMING` PRIMARY KEY (
+	`incomingId`
+);
+
+
+
+@@EXAMPLE
+
+INSERT INTO INCOME (ledgerId, categoryIncomeId, incomeList, incomeAmount, incomeWhy, incomeMemo)
+VALUES (16,1,'통장',200000,'알바비','주말 카페알바');
+
+5. SPENDING_METHOD
+
+CREATE TABLE `SPENDING_METHOD` (
+	`spendingMethodId`	INTEGER	NOT NULL AUTO_INCREMENT,
+	`spendingMethod`	VARCHAR(30)	NOT NULL,
+	`userId`	INTEGER	NOT NULL
+);
+
+ALTER TABLE `SPENDING_METHOD` ADD CONSTRAINT `PK_SPENDING_METHOD` PRIMARY KEY (
+	`spendingMethodId`
+);
+
+6.INCOMING_METHOD
+
+CREATE TABLE `INCOMING_METHOD` (
+	`incomingMethodId`	INTEGER	NOT NULL AUTO_INCREMENT,
+	`incomingMethod`	VARCHAR(30)	NOT NULL,
+	`userId`	INTEGER	NOT NULL
+);
+
+ALTER TABLE `INCOMING_METHOD` ADD CONSTRAINT `PK_INCOMING_METHOD` PRIMARY KEY (
+	`incomingMethodId`
+);
+
+
 
 
 ///
@@ -50,3 +123,9 @@ ALTER TABLE `LEDGER` ADD CONSTRAINT `PK_LEDGER` PRIMARY KEY (
 UPDATE
 
 UPDATE 테이블명 SET 필드명='변경할값' WHERE 필드명=해당값;
+
+INSERT
+
+INSERT INTO 테이블 이름 (열1, 열2, ...) 
+VALUE (값1, 값2 , ….)
+

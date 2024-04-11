@@ -32,35 +32,61 @@ public class LedgerController {
 	@Autowired
     LedgerService ledgerService;
 	
-	@GetMapping("/ledger/myLedger")
-	public String getMyAllLedger(@RequestParam("userId") int userId) {
-		System.out.println("LedgerController.getAll 조회시작");
-		System.out.println("받아온 userId : " + userId);
-		ArrayList<Ledger> ledgerList = ledgerService.getMyAllLedger(userId);
+//	@GetMapping("/ledger/myLedger")
+//	public String getMyAllLedger(@RequestParam("userId") int userId) {
+//		System.out.println("LedgerController.getAll 조회시작");
+//		System.out.println("받아온 userId : " + userId);
+//		ArrayList<Ledger> ledgerList = ledgerService.getMyAllLedger(userId);
+//		
+//		String json = new Gson().toJson(ledgerList);
+//		
+//		System.out.println(json);
+//		
+//		return json;
+//	}
+	
+//	// 새로운 가계부 생성
+//	@PostMapping("/ledger/newLedgerConfirm")
+//	public String newLedgerConfirm(@RequestBody Ledger ledger) {
+//		System.out.println("가계부 작성 요청 보낸 userId : " + ledger.getUserId());
+//		System.out.println("가계부 이름 : " + ledger.getLedgerName());
+//		System.out.println("가계부 메모 : " + ledger.getLedgerMemo());
+//		
+//		int result = ledgerService.newLedgerConfirm(ledger);
+//		
+//		System.out.println(result);
+//		
+//		if (result == 1) {
+//			return "가계부 생성 성공";
+//		} else {
+//			return "가계부 생성 중 오류 발생";
+//		}
+//	}
+	
+	// 가계부 지출 상세조회
+	@GetMapping("/ledger/spendingData")
+	public String getSpending(@RequestParam ("userId") int userId) {
 		
-		String json = new Gson().toJson(ledgerList);
+		ArrayList<Spending> spendingList = ledgerService.getSpending(userId);
+		
+		String json = new Gson().toJson(spendingList);
 		
 		System.out.println(json);
 		
 		return json;
 	}
 	
-	// 새로운 가계부 생성
-	@PostMapping("/ledger/newLedgerConfirm")
-	public String newLedgerConfirm(@RequestBody Ledger ledger) {
-		System.out.println("가계부 작성 요청 보낸 userId : " + ledger.getUserId());
-		System.out.println("가계부 이름 : " + ledger.getLedgerName());
-		System.out.println("가계부 메모 : " + ledger.getLedgerMemo());
+	// 가계부 수입 상세조회
+	@GetMapping("/ledger/incomeData")
+	public String getIncome(@RequestParam ("ledgerId") int ledgerId) {
 		
-		int result = ledgerService.newLedgerConfirm(ledger);
+		ArrayList<Income> incomeList = ledgerService.getIncome(ledgerId);
 		
-		System.out.println(result);
+		String json = new Gson().toJson(incomeList);
 		
-		if (result == 1) {
-			return "가계부 생성 성공";
-		} else {
-			return "가계부 생성 중 오류 발생";
-		}
+		System.out.println(json);
+		
+		return json;
 	}
 	
 	

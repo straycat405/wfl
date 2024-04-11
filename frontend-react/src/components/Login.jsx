@@ -52,7 +52,7 @@ export default function Login() {
                 if (loginedUser.adminAuth == 1) {
                   navigate("/admin/main");
                 } else {
-                  navigate("/loginSuccess");
+                  navigate("/ledger/" + loginedUser.userEmail , { state: loginedUser.userId });
                 }
 
                 

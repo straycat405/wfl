@@ -47,7 +47,7 @@ export default function Navbar() {
     if (loginedUser == null) {
       confirm("회원가입 페이지로 이동합니다.") && navigate("/signup");
     } else {
-      navigate("/mypage");
+      navigate("/ledger/" + loginedUser.userEmail);
     }
 
   }

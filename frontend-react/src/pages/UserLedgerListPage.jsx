@@ -1,12 +1,12 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import UserLedgerList from "../components/UserLedgerList";
+import LedgerMain from "../components/LedgerMain";
 
 export default function UserLedgerListPage() {
     return(
         <>
         <Navbar />
-        <UserLedgerList />
+        <LedgerMain />
         <Footer />
         </>
     );

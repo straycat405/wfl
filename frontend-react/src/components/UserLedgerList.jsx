@@ -12,6 +12,8 @@ export default function UserLedgerList() {
     const [data, setData] = useState([]);
     const [isOpen,setIsOpen] = useState(false);
 
+    const navigate = useNavigate();
+
     // 가계부 작성 Form 안의 변수들. state가 많아져서 하나로 묶음 (stateHandler 추가로 사용)
     const [state, setState] = useState({
       ledgerName: "",
@@ -80,6 +82,9 @@ export default function UserLedgerList() {
       setIsOpen(true);
 
       }
+
+    
+
 
 
     const modalContent =
