@@ -4,12 +4,12 @@ export default function TestModal( { isOpen, modalContent, onClick}) {
 
     return(
         <>
-            <div>
                 <Modal isOpen={isOpen}>
+                    <div className="w-50">
                     {modalContent}
                     <button onClick={onClick}> Close </button>
+                    </div>
                 </Modal>
-            </div>
         </>
     );
 }

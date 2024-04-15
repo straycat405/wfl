@@ -48,12 +48,12 @@ ALTER TABLE `LEDGER` ADD CONSTRAINT `PK_LEDGER` PRIMARY KEY (
 CREATE TABLE `SPENDING` (
 	`spendingId`	INTEGER	NOT NULL AUTO_INCREMENT,
 	`userId`	INTEGER	NOT NULL,
-	`spendingTime`	DATETIME	NOT NULL	DEFAULT (CURRENT_TIMESTAMP),
+	`spendingTime`	DATETIME	NOT NULL,
 	`spendingAmount`	INTEGER	NOT NULL,
 	`spendingWhy`	VARCHAR(100)	NULL,
-	`spendingCategory1`	INTEGER	NOT NULL,
-	`spendingCategory2`	INTEGER	NULL,
-	`spendingMethodId`	INTEGER	NOT NULL,
+	`spendingCategory1`	VARCHAR(20)	NOT NULL,
+	`spendingCategory2`	VARCHAR(20)	NULL,
+	`spendingMethod`	VARCHAR(20)	NULL,
 	`spendingMemo`	VARCHAR(100)	NULL
 );
 
@@ -63,8 +63,8 @@ ALTER TABLE `SPENDING` ADD CONSTRAINT `PK_SPENDING` PRIMARY KEY (
 
 @@ EXAMPLE
 
-INSERT INTO SPENDING (ledgerId, categorySpendingId, spendingList, spendingAmount, spendingWhy, spendingMemo)
-VALUES (16,1,'현금',50000,'축의금',null);
+INSERT INTO SPENDING (userId, spendingAmount,spendingCategory1, spendingCategory2, spendingMethod, spendingWhy, spendingMemo, spendingTime)
+VALUES (2, 50000, '식비', '커피/음료', '현금', '점심 이후 카페', '메모', '2024-04-12 17:09:20');
 
 4. INCOME
 
@@ -103,6 +103,11 @@ ALTER TABLE `SPENDING_METHOD` ADD CONSTRAINT `PK_SPENDING_METHOD` PRIMARY KEY (
 	`spendingMethodId`
 );
 
+
+///
+
+INSERT INTO SPENDING_METHOD (spendingMethod, userId) VALUES ('현금', 2);
+
 6.INCOMING_METHOD
 
 CREATE TABLE `INCOMING_METHOD` (
@@ -129,3 +134,71 @@ INSERT
 INSERT INTO 테이블 이름 (열1, 열2, ...) 
 VALUE (값1, 값2 , ….)
 
+
+
+조인문
+
+        SELECT spendingId, S.userId, (TO_CHAR(SPENDINGTIME,'YYYY-MM-DD HH:MM:SS')) as spendTime , spendingAmount, spendingWhy,
+        		spendingCategory1, spendingCategory2, S.spendingMethodId, spendingMemo, spendingMethod
+        FROM
+        SPENDING S JOIN SPENDING_METHOD M ON S.userId = M.userId WHERE S.userId = 2 AND S.spendingMethodId = M.spendingMethodId;
+
+
+
+"yyyy-MM-dd HH:mm:ss"
+
+///////
+
+INSERT INTO TIMETEST (TIME) VALUES ('2024-03-13');
+
+결과 - 2024-03-13 00:00:00 (DATETIME)
+
+1. h2 db - datetime
+- mybatis 에서 to_char로 time이름같게해서 json으로 보내기
+- 프론트에서 String으로 받아서 정상출력 (가능)
+
+역순으로
+
+1. 프론트에서 input - type "datetime-Local"로 받은 타임정보를 (value = time)
+2.moment(time).format("YYYY-MM-DD HH:mm:SS").toString(); 으로 String 변환
+3. 프론트로 String으로 보냄
+4. db에 삽입 (정상적으로 박아짐)
+
+확인
+
+
+////////////////
+
+
+연 / 월 / 일별 토탈 구하기
+
+SELECT
+    EXTRACT(YEAR FROM spendingTime) AS years,
+    EXTRACT(MONTH FROM spendingTime) AS months,
+    EXTRACT(DAY FROM spendingTime) AS days,
+    SUM(spendingAmount) AS daystotal
+FROM SPENDING
+GROUP BY EXTRACT(YEAR FROM spendingTime), EXTRACT(MONTH FROM spendingTime), EXTRACT(DAY FROM spendingTime)
+ORDER BY years, months, days;
+
+//////////
+
+일자만 뜯기
+
+SELECT
+    spendingId,
+    userId,
+    spendingTime,
+    spendingAmount,
+    spendingWhy,
+    spendingCategory1,
+    spendingCategory2,
+    spendingMethod,
+    spendingMemo
+FROM SPENDING
+WHERE
+    YEAR(spendingTime) = 2024
+AND MONTH(spendingTime) = 4
+AND DAY(spendingTime)= 10
+    AND userId = 2
+ORDER BY spendingTime;

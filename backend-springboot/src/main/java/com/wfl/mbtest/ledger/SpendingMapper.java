@@ -12,4 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SpendingMapper {
 	ArrayList<Spending> getSpending(int userId);
+	int insertSpending(Spending spending);
+	int deleteSpending(Spending spending);
+	Spending getModifySpending(int spendingId);
+	int modifySpendingConfirm(Spending spending);
+	ArrayList<Spending> getTotalSpending(int userId);
+	ArrayList<Spending> getDailySpending(Spending spending);
 }

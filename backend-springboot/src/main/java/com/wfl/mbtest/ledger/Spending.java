@@ -2,6 +2,8 @@ package com.wfl.mbtest.ledger;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,14 +19,22 @@ public class Spending {
 	
 	private int spendingId;
     private int userId;
-    private Date spendingTime;
+    
+    private String spendingTime;
+    
     private int spendingAmount;
     private String spendingWhy;
-    private int spendingCategory1;
-    private int spendingCategory2;
-    private int spendingMethodId;
+    private String spendingCategory1;
+    private String spendingCategory2;
     private String spendingMemo;
+    private String spendingMethod;
     
-    private String spendTime;
+    private int years;
+    private int year;
+    private int months;
+    private int month;
+    private int days;
+    private int day;
+    private int daystotal;
 
 }

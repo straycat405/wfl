@@ -1,0 +1,62 @@
+20240321 목
+
+SpringBoot 4버전으로 프로젝트 실행
+
+빌드는 gradle
+패키징 jar / java 17
+
+dependencies 추가한것
+h2 database
+Spring web
+Lombok
+
+
+프런트
+
+리액트
+
+설치한것
+
+npm create vite@latest
+
+npm i bootstrap@5 react-cookie@4 react-router-dom@6 reactstrap@9
+
+axios@latest 추가
+
+main.jsx에 import 'bootstrap/dist/css/bootstrap.min.css';추가
+
+tailwinds
+
+Tailwind css >> 부트스트랩과 유사
+
+npm i --save-dev @types/crypto-js
+
+: 자바스크립트상에서 가용한 암호화 모듈 SHA-256 알고리즘
+
+https://velog.io/@caecus/React-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%EC%97%90-SHA-256-%EC%95%94%ED%98%B8%ED%99%94-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+
+
+npm i @material-tailwind/react
+
+-> tailwind 확장판
+
+////////////////////////////////
+
+리액트 라우터 경로 설정 ->  action=> <Form> <- 내장컴포넌트 , loader, 
+
+로더 - 컴포넌트 생성 전에 미리 컴포넌트에 데이터 전달 (렌더링 전 시점)
+   - 각 파일에 loader 함수 만들고 이를 export하여 사용하는 것이 일반적
+   - loader함수가 값을 return 하면 useLoaderDate()로 컴포넌트에서 데이터 받을 수 있음.
+
+/////////
+
+0401
+
+tailwindcss + preline 설치로 프런트 css 구성
+
+
+0403
+
+
+headlessui 추가 (드롭다운 등 js 활용)
+npm install @headlessui/react

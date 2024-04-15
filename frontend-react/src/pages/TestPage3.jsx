@@ -1,52 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import moment from "moment";
 
-const baseUrl = "http://localhost:8080";
+
 
 export default function TestPage3() {
 
-    const [data, setData] = useState([]);
+const baseUrl = "http://localhost:8080";
 
-    async function findAllUser() {
-        // Axios 방식 사용
-        await axios
-          .get(baseUrl + "/findall") // 해당 URL에 HTTP GET 요청
-          .then((res) => {
-            console.log(res);
-            setData(res.data); // GET 요청하여 응답받은 data
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+const [data, setData] = useState([]);
+const [time, setTime] = useState();
+
+useEffect(() => {
+    axios
+      .get(baseUrl + "/datatest")
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+        console.log(data);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const changedTime = moment(time);
+
+  const sendTime = changedTime.format("YYYY-MM-DD HH:mm:SS").toString();
+
+  function test() {
+    axios({
+        method: "POST",
+        url: baseUrl + "/timetest",
+        data: {
+            time:sendTime
+        },
+        headers: { "Content-type": "application/json" },
+      })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    console.log(time);
+    console.log(changedTime);
+    console.log(changedTime.format("YYYY-MM-DD HH:mm:SS"));
+    console.log(time.toString());
+    console.log(changedTime.toString());
+    console.log(changedTime.format("YYYY-MM-DD HH:mm:SS").toString());
+
+  }
+
 
     return(
         <>
-            <button onClick={findAllUser}>전체유저목록조회</button>
-            {data && <textarea style={{width:'50%'}} rows={20} value={JSON.stringify(data)} readOnly={true}/>}
-            <table class="table" id="user_table">
-                <th>
-                    <tr>
-                        <th>번호</th>
-                        <th>이메일</th>
-                        <th>이름</th>
-                        <th>닉네임</th>
-                        <th>연락처</th>
-                        <th>가입일자</th>
-                    </tr>
-                </th>
-                <tbody>
-                    {data && data.map((user) => 
-                        <tr key={user.userId}>
-                            <td>{user.userId}</td>
-                            <td>{user.userEmail}</td>
-                            <td>{user.userName}</td>
-                            <td>{user.userNickname}</td>
-                            <td>{user.userPhone}</td>
-                            <td>{user.userRegDate}</td>
-                        </tr>)}
-                </tbody>
-            </table>
+            <h2>timetest</h2>
+            <button onClick={test}> 테스트 </button>
+            <input type="datetime-Local" value={time} onChange={(e)=>{setTime(e.target.value)}}></input>
+
+            <textarea cols="30" rows="10" value={JSON.stringify(data)}></textarea>
         </>
 
     );

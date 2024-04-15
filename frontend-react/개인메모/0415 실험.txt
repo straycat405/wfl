@@ -1,0 +1,17 @@
+INSERT INTO TIMETEST (TIME) VALUES ('2024-03-13');
+
+결과 - 2024-03-13 00:00:00 (DATETIME)
+
+1. h2 db - datetime
+- mybatis 에서 to_char로 time이름같게해서 json으로 보내기
+- 프론트에서 String으로 받아서 정상출력 (가능)
+
+역순으로
+
+1. 프론트에서 input - type "datetime-Local"로 받은 타임정보를 (value = time)
+2.moment(time).format("YYYY-MM-DD HH:mm:SS").toString(); 으로 String 변환
+3. 프론트로 String으로 보냄
+4. db에 삽입 (정상적으로 박아짐)
+
+확인
+

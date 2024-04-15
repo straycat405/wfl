@@ -128,3 +128,16 @@ npm install styled-components
 15. react-modal (모달창 사용)
 
 npm install react-modal
+
+16. flowbite js (tailwind 모달창 사용(
+
+설치가이드 : https://flowbite.com/docs/getting-started/quickstart/
+리액트 버전
+https://flowbite.com/docs/getting-started/react/
+
+npm install flowbite
+
+tailwind.config.js 수정
+
+17. chart.js - 차트 사용
+

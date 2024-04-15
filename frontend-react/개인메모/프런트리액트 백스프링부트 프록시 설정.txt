@@ -1,0 +1,23 @@
+프런트엔드 리액트vite / 백엔드 스프링부트 구현시 프런트엔드쪽 폴더 vite.config.js 프록시 설정입니다
+(리액트 서버 local:5173 / 스프링 서버 local:8080 api 통일)
+
+//vite.config.js
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+proxy: {
+ '/api': {
+  target: 'http://localhost:8080/api',
+	changeOrigin: true,
+	rewrite: path => path.replace(/^\/api/, ''),
+	secure: false,
+	ws:true,
+	},
+}, 
+  },
+})

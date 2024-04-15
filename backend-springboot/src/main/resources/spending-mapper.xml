@@ -3,8 +3,79 @@
 
 <mapper namespace="com.wfl.mbtest.ledger.SpendingMapper">
 
-	<select id="getSpending" parameterType="Integer" resultType="spending">
-        SELECT *, (TO_CHAR(SPENDINGTIME,'YYYY-MM-DD HH:MM:SS')) as spendTime FROM SPENDING WHERE userId = #{userId}
+	<select id="getSpending" parameterType="Integer"
+		resultType="spending">
+		SELECT *, (TO_CHAR(SPENDINGTIME,'yyyy-MM-DD HH:MM:SS')) as
+		spendingTime FROM
+		SPENDING WHERE userId = #{userId} ORDER BY
+		SPENDINGTIME
 	</select>
-	
+
+	<insert id="insertSpending" parameterType="spending">
+		INSERT INTO SPENDING
+		(userId, spendingTime, spendingAmount, spendingWhy,
+		spendingCategory1,
+		spendingCategory2, spendingMethod, spendingMemo)
+		VALUES (#{userId},
+		#{spendingTime}, #{spendingAmount}, #{spendingWhy},
+		#{spendingCategory1}, #{spendingCategory2}, #{spendingMethod},
+		#{spendingMemo})
+	</insert>
+
+	<delete id="deleteSpending" parameterType="spending">
+		DELETE FROM SPENDING
+		WHERE spendingId = #{spendingId}
+	</delete>
+
+	<select id="getModifySpending" parameterType="Integer"
+		resultType="spending">
+		SELECT * FROM SPENDING WHERE spendingId=#{spendingId}
+	</select>
+
+	<update id="modifySpendingConfirm" parameterType="spending">
+		UPDATE SPENDING
+		SET spendingTime = #{spendingTime}, spendingAmount =
+		#{spendingAmount}, spendingWhy = #{spendingWhy},
+		spendingMethod =
+		#{spendingMethod}, spendingMemo = #{spendingMemo}
+		WHERE userId =
+		#{userId} and spendingId = #{spendingId}
+	</update>
+
+	<select id="getTotalSpending" parameterType="Integer"
+		resultType="spending">
+		SELECT
+		EXTRACT(YEAR FROM spendingTime) AS years,
+		EXTRACT(MONTH FROM spendingTime) AS months,
+		EXTRACT(DAY FROM spendingTime) AS days,
+		SUM(spendingAmount) AS daystotal
+		FROM SPENDING
+		WHERE userId = #{userId}
+		GROUP BY EXTRACT(YEAR FROM spendingTime),
+		EXTRACT(MONTH FROM spendingTime),
+		EXTRACT(DAY FROM spendingTime)
+		ORDER
+		BY years, months, days;
+	</select>
+
+	<select id="getDailySpending" parameterType="spending">
+		SELECT
+		spendingId,
+		userId,
+		spendingTime,
+		spendingAmount,
+		spendingWhy,
+		spendingCategory1,
+		spendingCategory2,
+		spendingMethod,
+		spendingMemo
+		FROM SPENDING
+		WHERE
+		YEAR(spendingTime) = #{year}
+		AND MONTH(spendingTime) = #{month}
+		AND DAY(spendingTime)= #{day}
+		AND userId = #{userId}
+		ORDER BY spendingTime;
+	</select>
+
 </mapper>

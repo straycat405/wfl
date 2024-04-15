@@ -43,4 +43,26 @@ public class LedgerService {
 	public ArrayList<Income> getIncome(int userId) {
 		return incomeMapper.getIncome(userId);
 	}
+	
+	public int insertSpending(Spending spending) {
+		return spendingMapper.insertSpending(spending);
+	}
+	
+	public int deleteSpending(Spending spending) {
+		return spendingMapper.deleteSpending(spending);
+	}
+	public Spending getModifySpending(int spendingId) {
+		return spendingMapper.getModifySpending(spendingId);
+	}
+	public int modifySpendingConfirm(Spending spending) {
+		return spendingMapper.modifySpendingConfirm(spending);
+	}
+	
+	public ArrayList<Spending> getTotalSpending(int userId) {
+		return spendingMapper.getTotalSpending(userId);
+	}
+	
+	public ArrayList<Spending> getDailySpending(Spending spending) {
+		return spendingMapper.getDailySpending(spending);
+	}
 }

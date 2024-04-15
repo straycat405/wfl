@@ -1,0 +1,70 @@
+1. 프론트엔드 통합
+
+@ 리액트 버전 / 기타 플러그인
+
+@ vite@latest
+
+2. 백엔드 통합
+
+@ sts3? sts4 스프링 부트?
+
+@ gradle? maven?
+
+@ 사용한 dependency들 (implement 포함)
+
+3. 깃허브 사용법 논의
+
+
+목표는 회원가입 + 로그인 빠르게 완성 + 회원 테이블
+
+리액트 쓸건지, 스프링부트 + jsp로 갈건지 마지막 논의 (오늘 확정내기)
+
+리액트면 dom, 부트스트랩 등 세팅 개념 숙지 필요
+jsp면 타임리프, fragment등 개념 숙지 필요
+db는 Mybatis / jpa 선택 (최종)
+h2 / oracle(mariadb) / mysql
+
+다음주까지 할거
+
+--페이지 작성 
+
+-메인페이지
+-회원가입
+-아이디/비밀번호 찾기
+-로그인페이지
+- 로그인 성공시 임시 메인페이지
+-세션부여
+
+- 로그인지속 확인
+
+- 로그아웃 정상처리
+
+- 여기까지 정상작동하면 내부에서 작동
+
+나머지 기능 작성
+
+
+/ 프론트
+
+/백
+
+/빌드 
+
+maven / gradle
+
+gradle pom.xml ( build.gradle )
+
+web.xml
+
+sublet-context.html
+
+
+// 깃저장소 주소
+
+https://github.com/straycat405/wfl.git
+
+폴더 구성
+
+backend / src / main (스프링부트 프로그램 파일) / 자바 패키지 / 자바 클래스
+
+frontend / src / 리액트 메인파일 (jsx, css, js 등)
