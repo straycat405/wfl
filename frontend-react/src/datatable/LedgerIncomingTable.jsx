@@ -1,16 +1,17 @@
 import axios from "axios";
 
-export default function LedgerTable({ data, modifySpending }) {
+export default function LedgerTable({ data, modifyIncoming }) {
   const baseUrl = "http://localhost:8080";
 
   //삭제버튼
-  function deleteSpending(spendingId) {
+  function deleteIncoming(incomingId) {
+
     if (confirm("정말 삭제하시겠습니까?")) {
       axios({
         method: "POST",
-        url: baseUrl + "/deleteSpending",
+        url: baseUrl + "/deleteIncoming",
         data: {
-          spendingId: spendingId,
+          incomingId: incomingId,
         },
         headers: { "Content-type": "application/json" },
       })
@@ -35,13 +36,13 @@ export default function LedgerTable({ data, modifySpending }) {
                 <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
                   <tr>
                     <th scope="col" className="px-6 py-4">
-                      지출일
+                      수입일
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      지출금액
+                      수입금액
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      지출내역
+                      수입내역
                     </th>
                     <th scope="col" className="px-6 py-4">
                       카테고리 1
@@ -64,34 +65,34 @@ export default function LedgerTable({ data, modifySpending }) {
                   {data.map((i) => (
                     <tr
                       className="border-b border-neutral-200 dark:border-white/10"
-                      key={i.spendingId}
+                      key={i.incomingId}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {i.spendingTime}
+                        {i.incomingTime}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingAmount.toLocaleString() + " 원"}
+                        {i.incomingAmount.toLocaleString() + " 원"}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingWhy}
+                        {i.incomingWhy}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingCategory1}
+                        {i.incomingCategory1}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingCategory2}
+                        {i.incomingCategory2}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingMethod}
+                        {i.incomingMethod}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.spendingMemo}
+                        {i.incomingMemo}
                       </td>
 
                       <td>
                         <button
                           className="whitespace-nowrap px-6 py-4 text-green-500 hover:text-green-700"
-                          onClick={() => modifySpending(i.spendingId)}
+                          onClick={() => modifyIncoming(i.incomingId)}
                         >
                           {" "}
                           수정
@@ -101,7 +102,7 @@ export default function LedgerTable({ data, modifySpending }) {
                       <td>
                         <button
                           className="whitespace-nowrap px-6 py-4 text-red-500 hover:text-red-700"
-                          onClick={() => deleteSpending(i.spendingId)}
+                          onClick={() => deleteIncoming(i.incomingId)}
                         >
                           {" "}
                           삭제

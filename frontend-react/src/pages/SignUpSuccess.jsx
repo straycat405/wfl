@@ -1,22 +1,19 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 export default function SignUpSuccess() {
   return (
     <>
       <Navbar />
-        <div>
-          <h2>회원가입 완료!</h2>
-          <p>WFL과 함께 자산 늘리기</p>
-          <a href="/main">
-            <button>시작!</button>
-          </a>
+        <div className="text-center">
+          <h2 className="text-2xl m-12">회원가입 완료!</h2>
+          <h1 className="m-12 text-3xl text-green-500">WFL과 함께 자산 늘리기</h1>
+          <Link className="rounded text-3xl text-green-500 hover:text-green-700" to="/login">시작!
+          </Link>
         </div>
-        <div>
-          <h1>회원가입 완료</h1>
-          <button>로그인하기</button>
-        </div>
-
+        <div className="flex m-12">
+          </div>
       <Footer />
     </>
   );

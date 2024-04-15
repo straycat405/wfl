@@ -21,6 +21,8 @@ import SpendingDailyPage from './pages/SpendingDailyPage.jsx';
 import IncomingPage from './pages/IncomingPage.jsx';
 import LedgerMainPage from './pages/LedgerMainPage.jsx';
 import BarChart from './components/Chart/BarChart.jsx';
+import IncomeMainPage from './pages/IncomeMainPage.jsx';
+import IncomingDailyPage from './pages/IncomingDailyPage.jsx';
 
 const router = createBrowserRouter([
 
@@ -43,8 +45,9 @@ const router = createBrowserRouter([
   { path: '/userManagement', element: <UserManagementPage />},
   { path: '/mypage', element: <UserLedgerListPage/>},
   { path: '/ledger/main/:userEmail', element: <LedgerMainPage />},
+  { path: '/ledger/income/:userEmail', element: <IncomeMainPage />},
   { path: '/ledger/spending/:userEmail/:yearMonthDays', element: <SpendingDailyPage />},
-
+  { path: '/ledger/incoming/:userEmail/:yearMonthDays', element: <IncomingDailyPage />},
   { path: '/ledger/barchart', element: <BarChart />},
 
 

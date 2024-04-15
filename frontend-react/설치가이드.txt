@@ -141,3 +141,8 @@ tailwind.config.js 수정
 
 17. chart.js - 차트 사용
 
+npm install chart.js
+
+18. moment.js - date 타입 사용
+
+npm install moment --save

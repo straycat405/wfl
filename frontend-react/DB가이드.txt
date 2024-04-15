@@ -71,12 +71,12 @@ VALUES (2, 50000, '식비', '커피/음료', '현금', '점심 이후 카페', '
 CREATE TABLE `INCOMING` (
 	`incomingId`	INTEGER	NOT NULL AUTO_INCREMENT,
 	`userId`	INTEGER	NOT NULL,
-	`incomingTime`	DATETIME	NOT NULL	DEFAULT (CURRENT_TIMESTAMP),
+	`incomingTime`	DATETIME	NOT NULL,
 	`incomingAmount`	INTEGER	NOT NULL,
 	`incomingWhy`	VARCHAR(100)	NULL,
-	`incomingCategory1`	INTEGER	NOT NULL,
-	`incomingCategory2`	INTEGER	NULL,
-	`incomingMethodId`	INTEGER	NOT NULL,
+	`incomingCategory1`	VARCHAR(20)	NOT NULL,
+	`incomingCategory2`	VARCHAR(20)	NULL,
+	`incomingMethod`	VARCHAR(20)	NULL,
 	`incomingMemo`	VARCHAR(100)	NULL
 );
 
@@ -88,8 +88,8 @@ ALTER TABLE `INCOMING` ADD CONSTRAINT `PK_INCOMING` PRIMARY KEY (
 
 @@EXAMPLE
 
-INSERT INTO INCOME (ledgerId, categoryIncomeId, incomeList, incomeAmount, incomeWhy, incomeMemo)
-VALUES (16,1,'통장',200000,'알바비','주말 카페알바');
+INSERT INTO INCOMING (userId, incomingAmount,incomingCategory1, incomingCategory2, incomingMethod, incomingWhy, incomingMemo, incomingTime)
+VALUES (33, 500000, '기타', '복권', '현금', '복권당첨', '메모', '2024-04-16 17:09:20');
 
 5. SPENDING_METHOD
 

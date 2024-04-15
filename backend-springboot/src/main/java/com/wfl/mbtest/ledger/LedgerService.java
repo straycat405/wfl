@@ -16,13 +16,7 @@ public class LedgerService {
 	SpendingMapper spendingMapper;
 	
 	@Autowired
-	IncomeMapper incomeMapper;
-	
-	@Autowired
-	CategorySpendingMapper categorySpendingMapper;
-	
-	@Autowired
-	CategoryIncomeMapper categoryIncomeMapper;
+	IncomingMapper incomingMapper;
 	
 //    public User findAllUser(int id) {
 //        return userMapper.findAllUser(id);
@@ -40,10 +34,6 @@ public class LedgerService {
 		return spendingMapper.getSpending(userId);
 	}
 	
-	public ArrayList<Income> getIncome(int userId) {
-		return incomeMapper.getIncome(userId);
-	}
-	
 	public int insertSpending(Spending spending) {
 		return spendingMapper.insertSpending(spending);
 	}
@@ -57,12 +47,31 @@ public class LedgerService {
 	public int modifySpendingConfirm(Spending spending) {
 		return spendingMapper.modifySpendingConfirm(spending);
 	}
-	
 	public ArrayList<Spending> getTotalSpending(int userId) {
 		return spendingMapper.getTotalSpending(userId);
 	}
-	
 	public ArrayList<Spending> getDailySpending(Spending spending) {
 		return spendingMapper.getDailySpending(spending);
+	}
+	public ArrayList<Incoming> getTotalIncoming(int userId) {
+		return incomingMapper.getTotalIncoming(userId);
+	}
+	public ArrayList<Incoming> getIncoming(int userId) {
+		return incomingMapper.getIncoming(userId);
+	}
+	public int insertIncoming(Incoming incoming) {
+		return incomingMapper.insertIncoming(incoming);
+	}
+	public int deleteIncoming(Incoming incoming) {
+		return incomingMapper.deleteIncoming(incoming);
+	}
+	public Incoming getModifyIncoming(int incomingId) {
+		return incomingMapper.getModifyIncoming(incomingId);
+	}
+	public int modifyIncomingConfirm(Incoming incoming) {
+		return incomingMapper.modifyIncomingConfirm(incoming);
+	}
+	public ArrayList<Incoming> getDailyIncoming(Incoming incoming) {
+		return incomingMapper.getDailyIncoming(incoming);
 	}
 }

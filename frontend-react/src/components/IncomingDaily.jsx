@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import LedgerSpendingTable from "../datatable/LedgerSpendingTable.jsx";
-import { spendingCategoryList } from "../category/spendingCategoryList.jsx";
-import { categories } from "../category/categories.jsx";
+import LedgerIncomingTable from "../datatable/LedgerIncomingTable.jsx";
+import { incomingCategoryList } from "../category/incomingCategoryList.jsx";
+import { categories } from "../category/categories-income.jsx";
 import ReactModal from "react-modal";
 import moment from 'moment';
 import { useLocation } from "react-router-dom";
 
 
-// 로그인 -> 지출 일별 합계 리스트 -> 상세보기를 통한 일별 개별 리스트
-export default function SpendingDaily() {
+export default function IncomingDaily() {
   // axios 통신용 백 서버 url
   const baseUrl = "http://localhost:8080";
 
@@ -20,55 +19,53 @@ export default function SpendingDaily() {
   // 수정 모달
   const [modifyIsOpen, setModifyIsOpen] = useState(false);
 
-  // 지출 데이터
-  const [spendingData, setSpendingData] = useState([]);
+  const [incomingData, setIncomingData] = useState([]);
 
 
 
-  // 지출 입력 state
   const [state, setState] = useState({
-    spendingDate: "",
-    spendingAmount: null,
-    spendingWhy: "",
-    spendingMethod: null,
-    spendingMemo: "",
+    incomingDate: "",
+    incomingAmount: null,
+    incomingWhy: "",
+    incomingMethod: null,
+    incomingMemo: "",
   });
 
-  const spendingDateHandler = (e) => {
+  const incomingDateHandler = (e) => {
     setState({
       ...state,
-      spendingDate: e.target.value,
+      incomingDate: e.target.value,
     });
   };
 
-  const spendingAmountHandler = (e) => {
+  const incomingAmountHandler = (e) => {
     setState({
       ...state,
-      spendingAmount: e.target.value,
-    });
-  };
-
-
-  const spendingWhyHandler = (e) => {
-    setState({
-      ...state,
-      spendingWhy: e.target.value,
+      incomingAmount: e.target.value,
     });
   };
 
 
-  const spendingMethodHandler = (e) => {
+  const incomingWhyHandler = (e) => {
     setState({
       ...state,
-      spendingMethod: e.target.value,
+      incomingWhy: e.target.value,
     });
   };
 
 
-  const spendingMemoHandler = (e) => {
+  const incomingMethodHandler = (e) => {
     setState({
       ...state,
-      spendingMemo: e.target.value,
+      incomingMethod: e.target.value,
+    });
+  };
+
+
+  const incomingMemoHandler = (e) => {
+    setState({
+      ...state,
+      incomingMemo: e.target.value,
     });
   };
 
@@ -100,7 +97,7 @@ export default function SpendingDaily() {
     }
     axios({
       method: "POST",
-      url: baseUrl + "/ledger/spendingDailyData",
+      url: baseUrl + "/ledger/incomingDailyData",
       data: {
         userId: loginedUser.userId,
         year: year,
@@ -110,7 +107,7 @@ export default function SpendingDaily() {
       headers: { "Content-type": "application/json" },
     })
       .then((res) => {
-        setSpendingData(res.data);
+        setIncomingData(res.data);
         console.log(res.data);
       })
       .catch((err) => {
@@ -119,13 +116,11 @@ export default function SpendingDaily() {
 
         setState({
           ...state,
-          spendingDate: moment(`${year}-${month}-${day} 00:00:00`).format('YYYY-MM-DD HH:mm:SS'),
+          incomingDate: moment(`${year}-${month}-${day} 00:00:00`).format('YYYY-MM-DD HH:mm:SS'),
         });
 
 
   }, []);
-
-  // 모달 내용 (지출 입력)
 
   //테스트
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -148,45 +143,45 @@ export default function SpendingDaily() {
   };
 
   let category1 = [];
-  for (let i = 0; i < spendingCategoryList.length; i++) {
-    category1.push(key in spendingCategoryList);
+  for (let i = 0; i < incomingCategoryList.length; i++) {
+    category1.push(key in incomingCategoryList);
   }
 
   const modalContent = (
     <div>
       <form className="m-4">
-        <h2 className="m-12 text-center text-2xl font-semibold text-white">지출 입력</h2>
+        <h2 className="m-12 text-center text-2xl font-semibold text-white">수입 입력</h2>
       <div className="m-2">
-        <label className="m-4">지출일</label>
+        <label className="m-4">수입일</label>
         <input
           className="w-60"
           type="datetime-local"
-          value={state.spendingDate}
-          onChange={spendingDateHandler}
-          placeholder="지출일"
+          value={state.incomingDate}
+          onChange={incomingDateHandler}
+          placeholder="수입일"
         ></input>
       </div>
       <div className="m-2">
-        <label className="m-4">지출금액</label>
+        <label className="m-4">수입금액</label>
         <input
         className="w-60"
-          value={state.spendingAmount}
-          onChange={spendingAmountHandler}
-          placeholder="지출금액"
+          value={state.incomingAmount}
+          onChange={incomingAmountHandler}
+          placeholder="수입금액"
         ></input>
       </div>
       <div className="m-2">
-        <label className="m-4">지출내역</label>
+        <label className="m-4">수입내역</label>
         <input
         className="w-60"
-          value={state.spendingWhy}
-          onChange={spendingWhyHandler}
-          placeholder="지출내역"
+          value={state.incomingWhy}
+          onChange={incomingWhyHandler}
+          placeholder="수입내역"
         ></input>
       </div>
         {/*  */}
         <div className="m-2">
-          <label className="m-4">지출 카테고리 선택:</label>
+          <label className="m-4">수입 카테고리 선택:</label>
           <select 
           
           value={selectedCategory?.id} onChange={handleCategoryChange}>
@@ -218,8 +213,8 @@ export default function SpendingDaily() {
         <label className="m-4">결제수단</label>
         <input
         className="w-60"
-          value={state.spendingMethod}
-          onChange={spendingMethodHandler}
+          value={state.incomingMethod}
+          onChange={incomingMethodHandler}
           placeholder="결제수단"
         ></input>
         </div>
@@ -228,8 +223,8 @@ export default function SpendingDaily() {
         <label className="m-4">메모</label>
         <input
         className="w-60"
-          value={state.spendingMemo}
-          onChange={spendingMemoHandler}
+          value={state.incomingMemo}
+          onChange={incomingMemoHandler}
           placeholder="메모"
         ></input>
         </div>
@@ -238,66 +233,66 @@ export default function SpendingDaily() {
   );
 
   //시간데이터 포맷 변경 후 String으로 변환
-  const sendTime = moment(state.spendingDate).format("YYYY-MM-DD HH:mm:SS").toString();
+  const sendTime = moment(state.incomingDate).format("YYYY-MM-DD HH:mm:SS").toString();
 
-  function spendingSubmit() {
+  function incomingSubmit() {
     axios({
       method: "POST",
-      url: baseUrl + "/spendingInsert",
+      url: baseUrl + "/incomingInsert",
       data: {
         userId: loginedUser.userId,
-        spendingTime: sendTime,
-        spendingAmount: state.spendingAmount,
-        spendingWhy: state.spendingWhy,
-        spendingCategory1: selectedCategory?.name,
-        spendingCategory2: selectedSubCategory?.name,
-        spendingMethod: state.spendingMethod,
-        spendingMemo: state.spendingMemo
+        incomingTime: sendTime,
+        incomingAmount: state.incomingAmount,
+        incomingWhy: state.incomingWhy,
+        incomingCategory1: selectedCategory?.name,
+        incomingCategory2: selectedSubCategory?.name,
+        incomingMethod: state.incomingMethod,
+        incomingMemo: state.incomingMemo
       },
       headers: { "Content-type": "application/json" },
     })
       .then((res) => {
-        alert("지출내역 등록 성공");
+        alert("수입내역 등록 성공");
         console.log(res);
         window.location.reload();
       })
       .catch((error) => {
-        alert("지출내역 등록 실패, 오류 발생");
+        alert("수입내역 등록 실패, 오류 발생");
         console.log(error);
       });
   }
 
     // 수정 객체
     const [modifyData,setModifyData] = useState([]);
-    const [mSpendingDate, setMSpendingDate] = useState();
-    const [mSpendingAmount, setMSpendingAmount] = useState();
-    const [mSpendingWhy, setMSpendingWhy] = useState();
-    const [mSpendingMethod, setMSpendingMethod] = useState();
-    const [mSpendingMemo, setMSpendingMemo] = useState();
-    const [mSpendingCategory1, setMSpendingCateogory1] = useState();
-    const [mSpendingCategory2, setMSpendingCateogory2] = useState();
+    const [mIncomingDate, setMIncomingDate] = useState();
+    const [mIncomingAmount, setMIncomingAmount] = useState();
+    const [mIncomingWhy, setMIncomingWhy] = useState();
+    const [mIncomingMethod, setMIncomingMethod] = useState();
+    const [mIncomingMemo, setMIncomingMemo] = useState();
+    const [mIncomingCategory1, setMIncomingCateogory1] = useState();
+    const [mIncomingCategory2, setMIncomingCateogory2] = useState();
 
   // 수정버튼 함수
-  function modifySpending(spendingId) {
+  function modifyIncoming(incomingId) {
 
     axios
-    .get(baseUrl + "/getModifySpending?spendingId=" + spendingId)
+    .get(baseUrl + "/getModifyIncoming?incomingId=" + incomingId)
     .then((res) => {
       console.log(res.data);
       setModifyData(res.data);
-      setMSpendingDate(modifyData.spendingTime);
-      setMSpendingAmount(modifyData.spendingAmount);
-      setMSpendingWhy(modifyData.spendingWhy);
-      setMSpendingMethod(modifyData.spendingMethod);
-      setMSpendingMemo(modifyData.spendingMemo);
-      setMSpendingCateogory1(modifyData.spendingCategory1);
+      setMIncomingDate(modifyData.incomingTime);
+      setMIncomingAmount(modifyData.incomingAmount);
+      setMIncomingWhy(modifyData.incomingWhy);
+      setMIncomingMethod(modifyData.incomingMethod);
+      setMIncomingMemo(modifyData.incomingMemo);
+      setMIncomingCateogory1(modifyData.incomingCategory1);
     })
     .catch((err) => {
       console.log(err);
     });
     
     setModifyIsOpen(true);
-    console.log(spendingId);
+    console.log(incomingId);
 
   }
 
@@ -306,38 +301,38 @@ export default function SpendingDaily() {
   const modifyContent = (
     <div>
       <form className="m-4">
-        <h2 className="m-12 text-center text-2xl font-semibold text-white">지출 수정</h2>
+        <h2 className="m-12 text-center text-2xl font-semibold text-white">수입 수정</h2>
       <div className="m-2">
-        <label className="m-4">지출일</label>
+        <label className="m-4">수입일</label>
         <input
           className="w-60"
           type="datetime-local"
-          value={mSpendingDate}
-          onChange={(e) => setMSpendingDate(e.target.value)}
-          placeholder="지출일"
+          value={mIncomingDate}
+          onChange={(e) => setMIncomingDate(e.target.value)}
+          placeholder="수입일"
         ></input>
       </div>
       <div className="m-2">
-        <label className="m-4">지출금액</label>
+        <label className="m-4">수입금액</label>
         <input
         className="w-60"
-          value={mSpendingAmount}
-          onChange={(e) => setMSpendingAmount(e.target.value)}
-          placeholder="지출금액"
+          value={mIncomingAmount}
+          onChange={(e) => setMIncomingAmount(e.target.value)}
+          placeholder="수입금액"
         ></input>
       </div>
       <div className="m-2">
-        <label className="m-4">지출내역</label>
+        <label className="m-4">수입내역</label>
         <input
         className="w-60"
-          value={mSpendingWhy}
-          onChange={(e) => setMSpendingWhy(e.target.value)}
-          placeholder="지출내역"
+          value={mIncomingWhy}
+          onChange={(e) => setMIncomingWhy(e.target.value)}
+          placeholder="수입내역"
         ></input>
       </div>
         {/*  */}
         <div className="m-2">
-          <label className="m-4">지출 카테고리 선택:</label>
+          <label className="m-4">수입 카테고리 선택:</label>
           <select 
           value={selectedCategory?.id} onChange={handleCategoryChange}>
             {categories.map((category) => (
@@ -368,8 +363,8 @@ export default function SpendingDaily() {
         <label className="m-4">결제수단</label>
         <input
         className="w-60"
-          value={mSpendingMethod}
-          onChange={(e) => setMSpendingMethod(e.target.value)}
+          value={mIncomingMethod}
+          onChange={(e) => setMIncomingMethod(e.target.value)}
           placeholder="결제수단"
         ></input>
         </div>
@@ -378,8 +373,8 @@ export default function SpendingDaily() {
         <label className="m-4">메모</label>
         <input
         className="w-60"
-          value={mSpendingMemo}
-          onChange={(e) => setMSpendingMemo(e.target.value)}
+          value={mIncomingMemo}
+          onChange={(e) => setMIncomingMemo(e.target.value)}
           placeholder="메모"
         ></input>
         </div>
@@ -388,7 +383,7 @@ export default function SpendingDaily() {
   );
 
 
-  const modifiedSendTime = moment(mSpendingDate).format("YYYY-MM-DD HH:mm:SS").toString();
+  const modifiedSendTime = moment(mIncomingDate).format("YYYY-MM-DD HH:mm:SS").toString();
 
 
 
@@ -397,25 +392,25 @@ export default function SpendingDaily() {
   function modifySubmit() {
     axios({
       method: "POST",
-      url: baseUrl + "/modifySpendingConfirm",
+      url: baseUrl + "/modifyIncomingConfirm",
       data: {
         userId: loginedUser.userId,
-        spendingId: modifyData.spendingId,
-        spendingTime: modifiedSendTime,
-        spendingAmount: mSpendingAmount,
-        spendingWhy: mSpendingWhy,
-        spendingMethod: mSpendingMethod,
-        spendingMemo: mSpendingMemo 
+        incomingId: modifyData.incomingId,
+        incomingTime: modifiedSendTime,
+        incomingAmount: mIncomingAmount,
+        incomingWhy: mIncomingWhy,
+        incomingMethod: mIncomingMethod,
+        incomingMemo: mIncomingMemo 
       },
       headers: { "Content-type": "application/json" },
     })
       .then((res) => {
-        alert("지출내역 수정 성공");
+        alert("수입내역 수정 성공");
         console.log(res);
         window.location.reload();
       })
       .catch((error) => {
-        alert("지출내역 수정 실패, 오류 발생");
+        alert("수입내역 수정 실패, 오류 발생");
         console.log(error);
       });
 
@@ -446,7 +441,7 @@ export default function SpendingDaily() {
         >
           {modalContent}
           <div>
-        <button className="m-8 w-16 h-12 rounded bg-green-400 text-white" onClick={spendingSubmit}> 확인 </button>
+        <button className="m-8 w-16 h-12 rounded bg-green-400 text-white" onClick={incomingSubmit}> 확인 </button>
         <button className="m-8 w-16 h-12 rounded bg-green-400 text-red-600" onClick={()=>setIsOpen(false)}> 닫기 </button>
         </div>
           
@@ -454,9 +449,9 @@ export default function SpendingDaily() {
         </ReactModal>
       </div>
       <div className="text-center text-xl ">
-      <h2> 지출 상세 내역 </h2>
+      <h2> 수입 상세 내역 </h2>
       </div>
-      <LedgerSpendingTable data={spendingData} modifySpending={modifySpending}/>
+      <LedgerIncomingTable data={incomingData} modifyIncoming={modifyIncoming}/>
       <div className="text-center">
         <button
           className="w-24 h-12 rounded bg-green-500 text-white hover:bg-green-600"
@@ -464,7 +459,7 @@ export default function SpendingDaily() {
             setIsOpen(true);
           }}
         >
-          지출 입력
+          수입 입력
         </button>
       </div>
     </>

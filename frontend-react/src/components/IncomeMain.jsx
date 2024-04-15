@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-export default function LedgerMain() {
+export default function IncomeMain() {
 
     const baseUrl = "http://localhost:8080";
 
@@ -21,7 +21,7 @@ export default function LedgerMain() {
       navigate("/login");
     }
     axios
-      .get(baseUrl + "/ledger/totalSpendingData?userId=" + loginedUser.userId)
+      .get(baseUrl + "/ledger/totalIncomingData?userId=" + loginedUser.userId)
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -37,7 +37,7 @@ export default function LedgerMain() {
 
     return (
         <>
-        <h2 className="m-12 text-center text-2xl font-semibold">지출 내역</h2>
+        <h2 className="m-12 text-center text-2xl font-semibold">수입 내역</h2>
         <>
       <div className="flex flex-col content-center">
         <div className="overflow-x-auto m-auto">
@@ -50,7 +50,7 @@ export default function LedgerMain() {
                       일자
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      지출 총 금액
+                      수입 총 금액
                     </th>
                     <th scope="col" className="px-6 py-4">
                       상세보기
@@ -66,11 +66,11 @@ export default function LedgerMain() {
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {i.years +"-"+ i.months +"-"+ i.days}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">
+                      <td className="whitespace-nowrap px-6 py-4 text-green-600">
                         {i.daystotal.toLocaleString() + " 원"}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <button onClick={()=>{navigate((`/ledger/spending/` + loginedUser.userEmail + "/" + i.years + "" + i.months + "" + i.days),                
+                        <button onClick={()=>{navigate((`/ledger/incoming/` + loginedUser.userEmail + "/" + i.years + "" + i.months + "" + i.days),                
                          {
                             state: {
                                 years: i.years,
@@ -88,7 +88,7 @@ export default function LedgerMain() {
                 {data.length == 0 ? '작성한 가계부가 없습니다.' : null}
               </div>
               <div className="flex place-content-center mb-16 w-32 h-12 bg-green-500 rounded hover:bg-green-600 text-white translate-x-28">
-                <button onClick={()=>{navigate((`/ledger/spending/` + loginedUser.userEmail + "/" + todayYear + "" + todayMonth + "" + todayDay),                
+                <button onClick={()=>{navigate((`/ledger/incoming/` + loginedUser.userEmail + "/" + todayYear + "" + todayMonth + "" + todayDay),                
                          {
                             state: {
                                 years: todayYear,
@@ -96,7 +96,7 @@ export default function LedgerMain() {
                                 days: todayDay
                             }
                         })
-                    }}>지출 작성하기</button>
+                    }}>수입 작성하기</button>
               </div>
 
             </div>
