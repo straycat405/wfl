@@ -146,3 +146,7 @@ npm install chart.js
 18. moment.js - date 타입 사용
 
 npm install moment --save
+
+19. react chart.js2 - 리액트용 chart.js
+
+npm install --save chart.js react-chartjs-2

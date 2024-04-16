@@ -4,13 +4,12 @@ import Footer from "../components/Footer.jsx";
 import Feature from "../components/Feature.jsx";
 
 export default function MainPage() {
-    
-    return(
+  return (
     <>
-        <Navbar />
-        <Header />
-        <Feature />
-        <Footer />
-    </>    
-    )
+      <Navbar />
+      <Header />
+      <Feature />
+      <Footer />
+    </>
+  );
 }

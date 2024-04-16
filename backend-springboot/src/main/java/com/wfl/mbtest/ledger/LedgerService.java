@@ -47,14 +47,14 @@ public class LedgerService {
 	public int modifySpendingConfirm(Spending spending) {
 		return spendingMapper.modifySpendingConfirm(spending);
 	}
-	public ArrayList<Spending> getTotalSpending(int userId) {
-		return spendingMapper.getTotalSpending(userId);
+	public ArrayList<Spending> getTotalSpending(Spending spending) {
+		return spendingMapper.getTotalSpending(spending);
 	}
 	public ArrayList<Spending> getDailySpending(Spending spending) {
 		return spendingMapper.getDailySpending(spending);
 	}
-	public ArrayList<Incoming> getTotalIncoming(int userId) {
-		return incomingMapper.getTotalIncoming(userId);
+	public ArrayList<Incoming> getTotalIncoming(Incoming incoming) {
+		return incomingMapper.getTotalIncoming(incoming);
 	}
 	public ArrayList<Incoming> getIncoming(int userId) {
 		return incomingMapper.getIncoming(userId);
@@ -73,5 +73,8 @@ public class LedgerService {
 	}
 	public ArrayList<Incoming> getDailyIncoming(Incoming incoming) {
 		return incomingMapper.getDailyIncoming(incoming);
+	}
+	public ArrayList<Spending> getMonthSpending(int userId) {
+		return spendingMapper.getMonthSpending(userId);
 	}
 }

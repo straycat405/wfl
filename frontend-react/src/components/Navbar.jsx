@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import defaultImg from "../assets/images/defaultprofile.jpg";
 
 //HeadlessUi 사용을 위한 함수
-function classNames(...classes) {
+export function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
+
 
 export default function Navbar() {
 
@@ -34,14 +35,7 @@ export default function Navbar() {
       setProfileSet("size-10 rounded-full overflow-hidden");
       setProfile(loginedUser.userProfile ? `${loginedUser.userProfile}` : defaultImg);
     }
-  }, []);
-
-  useEffect(() => {
-    if (!loginedUser) {
-      setProfileSet("hidden");
-      setProfile("");
-    }
-  }, []);
+  }, [profile, useNavigate()]);
 
   function toSignupPage() {
     if (loginedUser == null) {
@@ -56,6 +50,7 @@ export default function Navbar() {
     if (loginedUser == null) {
       if (confirm("로그인 페이지로 이동합니다.") == true) {
         navigate("/login");
+        window.location.reload();
       } else {
         return false;
       }
@@ -82,11 +77,8 @@ export default function Navbar() {
         >
           WFL
         </Link>
-        {/* 테스트 */}
-        {/*  */}
         <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:ps-5">
         <img src={profile} alt="profile" className={profileSet}/>
-        {/* <img src="src/assets/profileimages/72eb5d54-e38b-4404-bc8a-45bcb3cae85f_BOOK001.jpg"></img> */}
         <span
             className="font-medium text-gray-600 "
           >

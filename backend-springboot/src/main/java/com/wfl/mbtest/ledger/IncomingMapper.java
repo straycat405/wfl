@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IncomingMapper {
 	
-	ArrayList<Incoming> getTotalIncoming(int userId);
+	ArrayList<Incoming> getTotalIncoming(Incoming incoming);
 	ArrayList<Incoming> getIncoming(int userId);
 	int insertIncoming(Incoming incoming);
 	int deleteIncoming(Incoming incoming);

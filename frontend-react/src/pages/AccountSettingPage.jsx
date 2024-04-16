@@ -3,12 +3,11 @@ import AccountSetting from "../components/AccountSetting";
 import Footer from "../components/Footer";
 
 export default function AccountSettingPage() {
-
-    return(
-        <>
-            <Navbar />
-            <AccountSetting />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <AccountSetting />
+      <Footer />
+    </>
+  );
 }

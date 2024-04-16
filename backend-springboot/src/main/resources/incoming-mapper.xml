@@ -3,7 +3,7 @@
 
 <mapper namespace="com.wfl.mbtest.ledger.IncomingMapper">
 	
-	<select id="getTotalIncoming" parameterType="Integer"
+	<select id="getTotalIncoming" parameterType="incoming"
 		resultType="incoming">
 		SELECT
 		EXTRACT(YEAR FROM incomingTime) AS years,
@@ -11,7 +11,8 @@
 		EXTRACT(DAY FROM incomingTime) AS days,
 		SUM(incomingAmount) AS daystotal
 		FROM INCOMING
-		WHERE userId = #{userId}
+		WHERE userId = #{userId} AND EXTRACT(YEAR FROM incomingTime) = #{year} AND
+		EXTRACT(MONTH FROM incomingTime) = #{month}
 		GROUP BY EXTRACT(YEAR FROM incomingTime),
 		EXTRACT(MONTH FROM incomingTime),
 		EXTRACT(DAY FROM incomingTime)

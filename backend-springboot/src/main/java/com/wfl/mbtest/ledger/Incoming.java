@@ -34,5 +34,7 @@ public class Incoming {
     private int days;
     private int day;
     private int daystotal;
+    
+    private String selectedMonth;
 
 }

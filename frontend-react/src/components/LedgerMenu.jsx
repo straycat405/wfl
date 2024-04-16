@@ -31,6 +31,7 @@ export default function LedgerMenu() {
             캘린더
           </button>
           <button
+          onClick={()=>{navigate("/ledger/barchart/")}}
             className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
           >
             차트조회

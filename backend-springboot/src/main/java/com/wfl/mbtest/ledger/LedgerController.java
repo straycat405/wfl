@@ -143,12 +143,14 @@ public class LedgerController {
 	}
 
 	// 지출연월일별합계
-	@GetMapping("/ledger/totalSpendingData")
-	public String getTotalSpending(@RequestParam("userId") int userId) {
-
-		ArrayList<Spending> totalList = ledgerService.getTotalSpending(userId);
-
-		System.out.println(totalList.get(0).getYears());
+	@PostMapping("/ledger/totalSpendingData")
+	public String getTotalSpending(@RequestBody Spending spending) {
+		
+		System.out.println(spending.getUserId());
+		System.out.println(spending.getYear());
+		System.out.println(spending.getMonth());
+		
+		ArrayList<Spending> totalList = ledgerService.getTotalSpending(spending);
 
 		String json = new Gson().toJson(totalList);
 
@@ -171,12 +173,10 @@ public class LedgerController {
 	}
 
 	// 수입연월일별합계
-	@GetMapping("/ledger/totalIncomingData")
-	public String getTotalIncoming(@RequestParam("userId") int userId) {
-
-		ArrayList<Incoming> totalList = ledgerService.getTotalIncoming(userId);
-
-		System.out.println(totalList.get(0).getYears());
+	@PostMapping("/ledger/totalIncomingData")
+	public String getTotalIncoming(@RequestBody Incoming incoming) {
+		
+		ArrayList<Incoming> totalList = ledgerService.getTotalIncoming(incoming);
 
 		String json = new Gson().toJson(totalList);
 
@@ -256,6 +256,17 @@ public class LedgerController {
 		String json = new Gson().toJson(dailyList);
 
 		return json;
+	}
+	
+	// 차트 조회용 월간 데이타
+	@GetMapping("/getMonthSpending")
+	public String getMonthSpending(@RequestParam("userId") int userId) {
+		
+		ArrayList<Spending> monthList = ledgerService.getMonthSpending(userId);
+		
+		String json = new Gson().toJson(monthList);
+		
+		return "";
 	}
 
 }

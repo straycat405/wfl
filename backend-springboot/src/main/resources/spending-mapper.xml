@@ -42,7 +42,7 @@
 		#{userId} and spendingId = #{spendingId}
 	</update>
 
-	<select id="getTotalSpending" parameterType="Integer"
+	<select id="getTotalSpending" parameterType="spending"
 		resultType="spending">
 		SELECT
 		EXTRACT(YEAR FROM spendingTime) AS years,
@@ -50,12 +50,12 @@
 		EXTRACT(DAY FROM spendingTime) AS days,
 		SUM(spendingAmount) AS daystotal
 		FROM SPENDING
-		WHERE userId = #{userId}
+		WHERE userId = #{userId} AND EXTRACT(YEAR FROM spendingTime) = #{year} AND
+		EXTRACT(MONTH FROM spendingTime) = #{month}
 		GROUP BY EXTRACT(YEAR FROM spendingTime),
 		EXTRACT(MONTH FROM spendingTime),
 		EXTRACT(DAY FROM spendingTime)
-		ORDER
-		BY years, months, days;
+		ORDER BY years, months, days;
 	</select>
 
 	<select id="getDailySpending" parameterType="spending">
@@ -73,9 +73,12 @@
 		WHERE
 		YEAR(spendingTime) = #{year}
 		AND MONTH(spendingTime) = #{month}
-		AND DAY(spendingTime)= #{day}
+		AND
+		DAY(spendingTime)= #{day}
 		AND userId = #{userId}
 		ORDER BY spendingTime;
 	</select>
+
+
 
 </mapper>

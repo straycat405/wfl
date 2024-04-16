@@ -43,7 +43,7 @@ export default function AccountSetting() {
     if (loginedUser.userProfile) {
       setImage(loginedUser.userProfile);
     }
-  }, []);
+  }, [image, loginedUser]);
 
   // 유저 정보 수정 공간 label <-> input 스왑을 위한 useState 설정
   const [classLabelSet, setClassLabelSet] = useState(

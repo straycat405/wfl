@@ -1,80 +1,118 @@
-import React, { useEffect, useRef } from "react";
-import { Chart, registerables } from "chart.js";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import React from "react";
+import { useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  layouts,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import faker from "faker";
+import moment from "moment";
+import axios from "axios";
 
-const BarChart = () => {
-  const chartRef = useRef(null);
-  let chartInstance = null;
+export default function BarChart() {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
-  useEffect(() => {
-    const ctx = chartRef.current.getContext("2d");
+  const baseUrl = "http://localhost:8080";
 
-    const createChart = () => {
-      Chart.register(...registerables);
-      chartInstance = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월","8월","9월","10월", "11월","12월"],
-          datasets: [
-            {
-              label: "지출 금액",
-              data: [400000, 200000, 300000, 400000, 500000, 600000, 400000, 200000, 700000, 350000, 650000 ], //데이터 들어가는 곳
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)",
-              ],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 1000000,
-            },
-          },
-        },
-      });
-    };
+  let loginedUser = JSON.parse(sessionStorage.getItem("loginedUser"));
 
-    const destroyChart = () => {
-      if (chartInstance) {
-        chartInstance.destroy();
-        chartInstance = null;
-      }
-    };
+  const [year, setYear] = useState(parseInt(moment().format("YYYY")));
 
-    destroyChart(); // 기존 차트 파괴
-    createChart(); // 새로운 차트 생성
+  const nextYear = year + 1;
+  const prevYear = year - 1;
 
-    return () => {
-      destroyChart(); // 컴포넌트가 unmount될 때 차트 파괴
-    };
-  }, []);
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: `${year}년 월별 지출내역`,
+      },
+    },
+  };
+
+  const labels = [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "지출",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000000 })),
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.4)",
+          "rgba(54, 162, 235, 0.4)",
+          "rgba(255, 206, 86, 0.4)",
+          "rgba(75, 192, 192, 0.4)",
+          "rgba(153, 102, 255, 0.4)",
+          "rgba(255, 159, 64, 0.4)",
+        ],
+      },
+    ],
+  };
+
+  function callData() {
+    axios.get(baseUrl + "/getMonthSpending?userId=" + loginedUser.userId)
+      .then((res) => {
+        console.log(res.data);
+      })
+  }
 
   return (
     <>
-    <Navbar />
-    <canvas id="mychart" width="500" height="200" ref={chartRef} />
-    <Footer />
+    <button onClick={callData}>test</button>
+      <div className="m-auto text-center">
+        <button
+          className="m-4 p-1 bg-gray-300 rounded hover:bg-gray-400"
+          onClick={() => {
+            setYear((prev) => prev - 1);
+          }}
+        >
+          {prevYear}년
+        </button>
+        <span className="m-4 text-green-500 font-semibold">{year}년</span>
+        <button
+          className="m-4 p-1 bg-gray-300 rounded hover:bg-gray-400"
+          onClick={() => {
+            setYear((prev) => prev + 1);
+          }}
+        >
+          {nextYear}년
+        </button>
+      </div>
+
+      <div className="w-3/5 m-auto">
+        <Bar options={options} data={data} />
+      </div>
     </>
   );
-  
-};
-
-export default BarChart;
+}

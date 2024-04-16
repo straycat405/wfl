@@ -16,6 +16,7 @@ public interface SpendingMapper {
 	int deleteSpending(Spending spending);
 	Spending getModifySpending(int spendingId);
 	int modifySpendingConfirm(Spending spending);
-	ArrayList<Spending> getTotalSpending(int userId);
+	ArrayList<Spending> getTotalSpending(Spending spending);
 	ArrayList<Spending> getDailySpending(Spending spending);
+	ArrayList<Spending> getMonthSpending(int userId);
 }
