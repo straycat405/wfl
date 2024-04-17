@@ -197,7 +197,7 @@ public class UserController {
 			file.transferTo(new File(filePath + fileName));
 
 			// 리액트 불러오기를 위한 상대파일경로 설정
-			String reactProfilePath = "src/assets/profileimages/" + fileName;
+			String reactProfilePath = "/src/assets/profileimages/" + fileName;
 			
 			
 			// DB 유저테이블에 프로필이미지 경로 저장

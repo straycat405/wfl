@@ -150,3 +150,7 @@ npm install moment --save
 19. react chart.js2 - 리액트용 chart.js
 
 npm install --save chart.js react-chartjs-2
+
+20. highchart -- 자바스크립트 차트
+
+npm install highcharts-react-official

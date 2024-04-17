@@ -47,14 +47,18 @@
 		SELECT
 		EXTRACT(YEAR FROM spendingTime) AS years,
 		EXTRACT(MONTH FROM spendingTime) AS months,
-		EXTRACT(DAY FROM spendingTime) AS days,
+		EXTRACT(DAY FROM
+		spendingTime) AS days,
 		SUM(spendingAmount) AS daystotal
 		FROM SPENDING
-		WHERE userId = #{userId} AND EXTRACT(YEAR FROM spendingTime) = #{year} AND
+		WHERE userId = #{userId} AND EXTRACT(YEAR FROM spendingTime) = #{year}
+		AND
 		EXTRACT(MONTH FROM spendingTime) = #{month}
-		GROUP BY EXTRACT(YEAR FROM spendingTime),
+		GROUP BY EXTRACT(YEAR
+		FROM spendingTime),
 		EXTRACT(MONTH FROM spendingTime),
-		EXTRACT(DAY FROM spendingTime)
+		EXTRACT(DAY FROM
+		spendingTime)
 		ORDER BY years, months, days;
 	</select>
 
@@ -79,6 +83,19 @@
 		ORDER BY spendingTime;
 	</select>
 
+	<select id="getMonthSpending" parameterType="Integer"
+		resultType="spending">
+		SELECT
+		EXTRACT(YEAR FROM spendingTime) AS years,
+		EXTRACT(MONTH FROM
+		spendingTime) AS months,
+		SUM(spendingAmount) AS monthtotal
+		FROM SPENDING
+		WHERE userId = #{userId}
+		GROUP BY EXTRACT(YEAR FROM spendingTime),
+		EXTRACT(MONTH FROM spendingTime)
+		ORDER BY years, months;
+	</select>
 
 
 </mapper>

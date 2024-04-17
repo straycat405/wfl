@@ -18,6 +18,8 @@ export default function AccountSetting() {
   //로그인중인 유저정보
   let loginedUser = JSON.parse(sessionStorage.getItem("loginedUser"));
 
+  const linkedProfile = loginedUser.userProfile;
+
   //스프링부트와 API통신을 위한 기본 URL 변수설정
   const baseUrl = "http://localhost:8080";
   //Navigate 이용을 위한 함수 호출
@@ -43,7 +45,7 @@ export default function AccountSetting() {
     if (loginedUser.userProfile) {
       setImage(loginedUser.userProfile);
     }
-  }, [image, loginedUser]);
+  }, []);
 
   // 유저 정보 수정 공간 label <-> input 스왑을 위한 useState 설정
   const [classLabelSet, setClassLabelSet] = useState(
@@ -168,6 +170,7 @@ export default function AccountSetting() {
 
   //연락처 수정 저장
   function toInputSwap4() {
+
     if (classLabelSet4 !== "hidden") {
       setClassLabelSet4("hidden");
       setClassInputSet4(

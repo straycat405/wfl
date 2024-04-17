@@ -36,6 +36,7 @@ public class Spending {
     private int days;
     private int day;
     private int daystotal;
+    private int monthtotal;
     
     private String selectedMonth;
 

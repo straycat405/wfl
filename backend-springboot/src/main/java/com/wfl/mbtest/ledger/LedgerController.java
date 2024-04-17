@@ -262,11 +262,13 @@ public class LedgerController {
 	@GetMapping("/getMonthSpending")
 	public String getMonthSpending(@RequestParam("userId") int userId) {
 		
+		System.out.println("차트 데이터 조회");
+		
 		ArrayList<Spending> monthList = ledgerService.getMonthSpending(userId);
 		
 		String json = new Gson().toJson(monthList);
 		
-		return "";
+		return json;
 	}
 
 }
