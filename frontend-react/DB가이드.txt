@@ -202,3 +202,18 @@ AND MONTH(spendingTime) = 4
 AND DAY(spendingTime)= 10
     AND userId = 2
 ORDER BY spendingTime;
+
+//////////////
+
+카테고리별 월간 지출내역 연간으로 조회
+
+		SELECT EXTRACT(YEAR FROM spendingTime) AS years,
+		spendingCategory1,
+		SUM(SPENDINGAMOUNT) AS categorySum
+		FROM SPENDING
+		WHERE userId = 2
+		GROUP BY EXTRACT(YEAR FROM spendingTime),
+		spendingCategory1
+		ORDER BY years;
+
+//

@@ -421,6 +421,12 @@ export default function SpendingDaily() {
 
   }
 
+  // 일자별 조회 날짜 표시
+
+  const year = location.state.years;
+  const month = location.state.months;
+  const day = location.state.days;
+
 
 
   return (
@@ -454,7 +460,7 @@ export default function SpendingDaily() {
         </ReactModal>
       </div>
       <div className="text-center text-xl ">
-      <h2> 지출 상세 내역 </h2>
+      <h2>{year}년 {month}월 {day}일 지출 상세 내역 </h2>
       </div>
       <LedgerSpendingTable data={spendingData} modifySpending={modifySpending}/>
       <div className="text-center">

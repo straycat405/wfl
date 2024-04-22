@@ -26,12 +26,13 @@ export default function LedgerMenu() {
             수입내역
           </button>
           <button
+          onClick={()=>{navigate("/ledger/calendar")}}
             className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
           >
             캘린더
           </button>
           <button
-          onClick={()=>{navigate("/ledger/chart/")}}
+          onClick={()=>{navigate("/ledger/chart")}}
             className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:ring-gray-600"
           >
             차트조회

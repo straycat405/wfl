@@ -270,5 +270,18 @@ public class LedgerController {
 		
 		return json;
 	}
+	
+	// 차트 조회용 카테고리별 월간 지출 데이타
+	@GetMapping("/getCategorySpending")
+	public String getCategorySpending(@RequestParam("userId") int userId) {
+		
+		System.out.println("차트 카테고리별 데이터 조회");
+		
+		ArrayList<Spending> monthCategoryList = ledgerService.getCategorySpending(userId);
+		
+		String json = new Gson().toJson(monthCategoryList);
+		
+		return json;
+	}
 
 }

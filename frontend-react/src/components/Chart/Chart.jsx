@@ -14,8 +14,6 @@ import {
 import { Bar } from "react-chartjs-2";
 import moment from "moment";
 import axios from "axios";
-import * as Highcharts from 'highcharts';
-import HighchartsReact from "highcharts-react-official";
 
 export default function Chart() {
   //ChartJS 사용을 위한 플러그인 등록
@@ -46,7 +44,7 @@ export default function Chart() {
   let loginedUser = JSON.parse(sessionStorage.getItem("loginedUser"));
 
   // BarChart 토글
-  const [IsOpen, setIsOpen] = useState("BAR");
+  const [IsOpen, setIsOpen] = useState("MONTH");
 
   const [chartData, setChartData] = useState([]);
 
@@ -79,7 +77,7 @@ export default function Chart() {
     (e) => e.monthtotal == Math.min(...monthValue)
   );
 
-  //chart.js 설정
+  //월간 지출조회
   const options = {
     responsive: true,
     plugins: {
@@ -126,40 +124,37 @@ export default function Chart() {
     ],
   };
 
-  function test() {
-    console.log(monthValue);
-    console.log(Math.max(...monthValue));
+  const [categoryData, setCategoryData] = useState([]);
+
+  function getCategoryData() {
+    console.log("카테고리별 지출 내역 차트 조회");
+    axios
+      .get(baseUrl + "/getCategorySpending?userId=" + loginedUser.userId)
+      .then((res) => {
+        setCategoryData(res.data);
+        console.log(categoryData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      console.log(categoryData.filter((e) => e.years == year));
+      console.log(categoryData.spendingCategory1);
+      console.log(categoryData.map((e) => e.spendingCategory1));
   }
 
-  //파이차트 옵션 (HighCharts)
-  
-  const PieOptions = {
-
-  };
 
   return (
     <>
-      <div className="grid place-items-center bg-red-300 h-20">
-        <button
-          className="flex bg-green-300 w-20 justify-center"
-          onClick={test}
-        >
-          TEST
-        </button>
+      <div className="grid place-items-center  h-20">
         <button
           className="flex bg-blue-300 w-28 justify-center"
-          onClick={() => setIsOpen("BAR")}
+          onClick={() => setIsOpen("MONTH")}
         >
-          BarChart
-        </button>
-        <button
-          className="flex bg-yellow-300 w-28 justify-center"
-          onClick={() => setIsOpen("PIE")}
-        >
-          PieChart
+          월별 지출내역
         </button>
       </div>
-      {IsOpen == "BAR" && (
+      {IsOpen == "MONTH" && (
         <>
           <div className="m-auto text-center">
             <button
@@ -224,9 +219,9 @@ export default function Chart() {
           </div>
         </>
       )}
-      {IsOpen == "PIE" && (
-        <>
-
+      {IsOpen == "CATEGORY" && (
+        <> 
+         
         </>
       )}
     </>

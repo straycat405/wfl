@@ -77,4 +77,7 @@ public class LedgerService {
 	public ArrayList<Spending> getMonthSpending(int userId) {
 		return spendingMapper.getMonthSpending(userId);
 	}
+	public ArrayList<Spending> getCategorySpending(int userId) {
+		return spendingMapper.getCategorySpending(userId);
+	}
 }

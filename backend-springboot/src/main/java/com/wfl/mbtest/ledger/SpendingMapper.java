@@ -19,4 +19,5 @@ public interface SpendingMapper {
 	ArrayList<Spending> getTotalSpending(Spending spending);
 	ArrayList<Spending> getDailySpending(Spending spending);
 	ArrayList<Spending> getMonthSpending(int userId);
+	ArrayList<Spending> getCategorySpending(int userId);
 }

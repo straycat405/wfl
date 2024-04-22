@@ -154,3 +154,11 @@ npm install --save chart.js react-chartjs-2
 20. highchart -- 자바스크립트 차트
 
 npm install highcharts-react-official
+
+21. chartjs - datalabels - chartjs 라벨용 플러그인
+
+npm install chartjs-plugin-datalabels --save
+
+22. react-calendar 리액트 캘린더
+
+npm i react-calendar

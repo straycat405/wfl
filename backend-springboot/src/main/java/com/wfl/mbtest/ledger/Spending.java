@@ -37,6 +37,7 @@ public class Spending {
     private int day;
     private int daystotal;
     private int monthtotal;
+    private int categorySum;
     
     private String selectedMonth;
 

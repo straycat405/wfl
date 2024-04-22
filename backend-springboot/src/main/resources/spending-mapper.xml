@@ -89,12 +89,27 @@
 		EXTRACT(YEAR FROM spendingTime) AS years,
 		EXTRACT(MONTH FROM
 		spendingTime) AS months,
-		SUM(spendingAmount) AS monthtotal
+		SUM(spendingAmount) AS
+		monthtotal
+		FROM SPENDING
+		WHERE userId = #{userId}
+		GROUP BY EXTRACT(YEAR
+		FROM spendingTime),
+		EXTRACT(MONTH FROM spendingTime)
+		ORDER BY years,
+		months;
+	</select>
+
+	<select id="getCategorySpending" parameterType="Integer"
+		resultType="spending">
+		SELECT EXTRACT(YEAR FROM spendingTime) AS years,
+		spendingCategory1,
+		SUM(SPENDINGAMOUNT) AS categorySum
 		FROM SPENDING
 		WHERE userId = #{userId}
 		GROUP BY EXTRACT(YEAR FROM spendingTime),
-		EXTRACT(MONTH FROM spendingTime)
-		ORDER BY years, months;
+		spendingCategory1
+		ORDER BY years;
 	</select>
 
 

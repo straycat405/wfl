@@ -38,7 +38,7 @@
 	</update>
 	
 	<update id="modifyUser" parameterType="user">
-		UPDATE USERLIST SET userEmail=#{userEmail}, userName=#{userName}, userNickname=#{userNickname},userPhone=#{userPhone} ,userModDate=TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:mm:ss')
+		UPDATE USERLIST SET userEmail=#{userEmail}, userName=#{userName}, userNickname=#{userNickname},userPhone=#{userPhone} ,userModDate=TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:MM:SS')
 				 WHERE userId = #{userId}
 	</update>
 	

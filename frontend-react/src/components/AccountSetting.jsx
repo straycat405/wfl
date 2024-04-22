@@ -18,8 +18,6 @@ export default function AccountSetting() {
   //로그인중인 유저정보
   let loginedUser = JSON.parse(sessionStorage.getItem("loginedUser"));
 
-  const linkedProfile = loginedUser.userProfile;
-
   //스프링부트와 API통신을 위한 기본 URL 변수설정
   const baseUrl = "http://localhost:8080";
   //Navigate 이용을 위한 함수 호출
@@ -98,7 +96,7 @@ export default function AccountSetting() {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then((res) => {
-          console.log(res); // response에는 백에서 업데이트된 유저정보 받아옴
+          console.log(res.data); // response에는 백에서 업데이트된 유저정보 받아옴
           // 세션 비우고 업데이트된 유저객체로 리셋
           sessionStorage.clear();
           sessionStorage.setItem("loginedUser", JSON.stringify(res.data));

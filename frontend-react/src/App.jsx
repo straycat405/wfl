@@ -22,6 +22,7 @@ import LedgerMainPage from './pages/LedgerMainPage.jsx';
 import IncomeMainPage from './pages/IncomeMainPage.jsx';
 import IncomingDailyPage from './pages/IncomingDailyPage.jsx';
 import ChartPage from './pages/ChartPage.jsx';
+import CalendarPage from './pages/CalendarPage.jsx';
 
 const router = createBrowserRouter([
 
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
   { path: '/ledger/spending/:userEmail/:yearMonthDays', element: <SpendingDailyPage />},
   { path: '/ledger/incoming/:userEmail/:yearMonthDays', element: <IncomingDailyPage />},
   { path: '/ledger/chart', element: <ChartPage />},
+  { path: '/ledger/calendar', element: <CalendarPage />},
 
 
 ]);
