@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wfl.mbtest.ledger.IncomingMapper">
+	
+	<select id="getTotalIncoming" parameterType="incoming"
+		resultType="incoming">
+		SELECT
+		EXTRACT(YEAR FROM incomingTime) AS years,
+		EXTRACT(MONTH FROM incomingTime) AS months,
+		EXTRACT(DAY FROM incomingTime) AS days,
+		SUM(incomingAmount) AS daystotal
+		FROM INCOMING
+		WHERE userId = #{userId} AND EXTRACT(YEAR FROM incomingTime) = #{year} AND
+		EXTRACT(MONTH FROM incomingTime) = #{month}
+		GROUP BY EXTRACT(YEAR FROM incomingTime),
+		EXTRACT(MONTH FROM incomingTime),
+		EXTRACT(DAY FROM incomingTime)
+		ORDER
+		BY years, months, days;
+	</select>
+	
+	<select id="getIncoming" parameterType="Integer"
+		resultType="incoming">
+		SELECT *, (TO_CHAR(INCOMINGTIME,'yyyy-MM-DD HH:MM:SS')) as
+		incomingTime FROM
+		INCOMING WHERE userId = #{userId} ORDER BY
+		INCOMINGTIME
+	</select>
+
+	<insert id="insertIncoming" parameterType="incoming">
+		INSERT INTO INCOMING
+		(userId, incomingTime, incomingAmount, incomingWhy,
+		incomingCategory1,
+		incomingCategory2, incomingMethod, incomingMemo)
+		VALUES (#{userId},
+		#{incomingTime}, #{incomingAmount}, #{incomingWhy},
+		#{incomingCategory1}, #{incomingCategory2}, #{incomingMethod},
+		#{incomingMemo})
+	</insert>
+
+	<delete id="deleteIncoming" parameterType="incoming">
+		DELETE FROM INCOMING
+		WHERE incomingId = #{incomingId}
+	</delete>
+
+	<select id="getModifyIncoming" parameterType="Integer"
+		resultType="incoming">
+		SELECT * FROM INCOMING WHERE incomingId=#{incomingId}
+	</select>
+
+	<update id="modifyIncomingConfirm" parameterType="incoming">
+		UPDATE INCOMING
+		SET incomingTime = #{incomingTime}, incomingAmount =
+		#{incomingAmount}, incomingWhy = #{incomingWhy},
+		incomingMethod =
+		#{incomingMethod}, incomingMemo = #{incomingMemo}
+		WHERE userId =
+		#{userId} and incomingId = #{incomingId}
+	</update>
+
+	<select id="getDailyIncoming" parameterType="incoming">
+		SELECT
+		incomingId,
+		userId,
+		incomingTime,
+		incomingAmount,
+		incomingWhy,
+		incomingCategory1,
+		incomingCategory2,
+		incomingMethod,
+		incomingMemo
+		FROM INCOMING
+		WHERE
+		YEAR(incomingTime) = #{year}
+		AND MONTH(incomingTime) = #{month}
+		AND DAY(incomingTime)= #{day}
+		AND userId = #{userId}
+		ORDER BY incomingTime;
+	</select>
+	
+</mapper>
