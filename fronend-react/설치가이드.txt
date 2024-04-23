@@ -1,0 +1,164 @@
+리액트 작업빌드및 환경 (프로젝트 폴더 생성시 설치할것)
+
+1. vite
+
+설치구문 : npm i vite@latest (@ 뒤는 버전, latest면 최신버전)
+
+2. react-router-dom (링크, 네비게이션 등 사용)
+
+npm i react-router-dom@6
+
+3. axios (리액트-front <-> 스프링부트-back 간 api통신 - 데이터 전송)
+
+npm i axios@latest
+
+4. tailwind (프로젝트 메인 css)
+
+설치순서
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+두개 다 해주셔야 설정폴더까지 생성됩니다
+
++ 추가 tailwind.config.js 설정
+
+// tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/preline/dist/*.js",
+  ],
+  darkMode: 'class',
+  theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
+    extend: {},
+  },
+  plugins: [
+     require('@tailwindcss/forms'),
+     require('preline/plugin'),
+  ],
+}
+
+그리고 index.css에 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+추가
+
+https://tailwindcss.com/docs/guides/vite <<<<< vite 전용 설치법 가이드
+
+5. material-tailwind (tailwind 확장판)
+
+npm i @material-tailwind/react
+
+6. preline (tailwind 확장판 2)
+
+설치방법 :
+npm i preline
+이후 tailwind.config.js 수정 (위에 수정 전문 있음)
+이후 index.html에 스크립트 추가 (body 최하단)
+<script src="./node_modules/preline/dist/preline.js"></script>
+
+설치가이드 : https://preline.co/docs/index.html
+
+
+6. heroicons
+사이트 : https://heroicons.com/
+각종 아이콘 받아와서 사용가능
+
+설치법
+
+//npm 이용 시 
+$npm install @heroicons/react
+
+사용법 : 필요한 컴포넌트에서 
+import { 필요한아이콘이름 } from '@heroicons/react/24/outline'
+
+현재 Feature 컴포넌트에서 사용중이니 참고
+
+
+7. crypto-js (패스워드 암호화해서 로그인 / 가입 / 정보수정시 db에 전달)
+
+npm i -d crypto-js
+
+사용법 : 필요한 컴포넌트에서 import { SHA256 } from "crypto-js";
+
+ const hash = SHA256(password).toString(); 같은 방식으로 변수 설정 후 사용
+
+8. tailwindform 추가
+
+npm install @tailwindcss/forms
+
+9. headlessui 추가 ( 드롭다운 메뉴 기능 )
+
+npm i @headlessui/react
+
+10. reacttable - 리액트용 테이블 플러그인
+
+npm i react-table --save
+
+11. react table 2
+
+npm install @tanstack/react-table
+
+12. react pagenation - 게시판 페이지네이션 라이브러리
+
+npm install react-js-pagination
+
+13. react-icon : 리액트용 아이콘 라이브러리
+
+npm install react-icons --save
+
+14. styled-component - 특정 요소들 개별 스타일링 용도
+
+npm install styled-components
+
+15. react-modal (모달창 사용)
+
+npm install react-modal
+
+16. flowbite js (tailwind 모달창 사용(
+
+설치가이드 : https://flowbite.com/docs/getting-started/quickstart/
+리액트 버전
+https://flowbite.com/docs/getting-started/react/
+
+npm install flowbite
+
+tailwind.config.js 수정
+
+17. chart.js - 차트 사용
+
+npm install chart.js
+
+18. moment.js - date 타입 사용
+
+npm install moment --save
+
+19. react chart.js2 - 리액트용 chart.js
+
+npm install --save chart.js react-chartjs-2
+
+20. highchart -- 자바스크립트 차트
+
+npm install highcharts-react-official
+
+21. chartjs - datalabels - chartjs 라벨용 플러그인
+
+npm install chartjs-plugin-datalabels --save
+
+22. react-calendar 리액트 캘린더
+
+npm i react-calendar

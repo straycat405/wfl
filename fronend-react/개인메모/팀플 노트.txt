@@ -1,0 +1,38 @@
+스프링부트 sts 4
+
+spring starter project
+
+selected : 
+
+- Spring Boot DevTools
+
+- Lombok
+
+- Spring Data JPA
+
+- Spring Data JDBC
+
+- Mybatis Framework
+
+- H2 Database
+
+- Spring Web
+
+추가 세팅 (빌드)
+
+- thymeleaf
+
+- org.apache.poi (엑셀 업로드 / 다운로드 관련)
+
+////
+
+main/resources -> application.yml 파일 세팅
+(Spring legacy에서의 web.xml, root-context.xml, servlet-context.xml의 합본)
+
+
+@@@@
+
+프런트 (리액트) + 백엔드 (sts4 스프링부트) 통합 원리
+
+각자 공부한걸 공유하자..
+

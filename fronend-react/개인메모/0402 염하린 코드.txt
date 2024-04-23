@@ -1,0 +1,654 @@
+import React, { useState } from 'react';
+
+function SignupPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleEmailCheck = () => {
+    // 이메일 중복 확인 로직
+    console.log('중복 확인');
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 회원가입 로직
+    console.log('회원가입');
+  };
+
+  return (
+    <div>
+      <h2>소셜계정으로 3초 가입하기</h2>
+      <div>
+        <button>구글</button>
+        <button>카카오톡</button>
+        <button>페이스북</button>
+        <button>네이버</button>
+        <button>애플</button>
+      </div>
+      <p>--------또는--------</p>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">이메일 주소:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handleEmailCheck}>중복확인</button>
+        </div>
+        <div>
+          <label htmlFor="password">비밀번호:</label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handlePasswordVisibility}>
+            {showPassword ? '비공개' : '보기'}
+          </button>
+        </div>
+        <div>
+          <label htmlFor="confirmPassword">비밀번호 확인:</label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handlePasswordVisibility}>
+            {showPassword ? '비공개' : '보기'}
+          </button>
+        </div>
+        <div>
+          <label htmlFor="name">이름:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phoneNumber">휴대폰 번호:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            value={phoneNumber}
+            onChange={(event) => setPhoneNumber(event.target.value)}
+            required
+          />
+          <select>
+            <option>SKT</option>
+            <option>KT</option>
+            <option>LG U+</option>
+          </select>
+          <button type="button">통신사 인증</button>
+        </div>
+        <button type="submit">회원가입</button>
+      </form>
+    </div>
+  );
+}
+
+export default SignupPage;
+
+//////////////////////////
+
+조장님 메일 중복확인 코드 찾아보고 혹시 도움 될까 보내봅니다.
+
+출처
+https://1-7171771.tistory.com/78
+
+이메일 중복확인 코드
+
+ build.gradle 의존성 추가
+implementation 'org.springframework.boot:spring-boot-starter-validation
+
+
+[중복확인] 버튼을 눌렀을때 요청되는 URL
+@GetMapping("/user-emails/{email}/exists")
+public Response Entity<Boolean> checkEmailDuplicate(@PathVariable String email) {
+return ResponseEntity.ok(userService.checkEmailDuplicate (email));
+}
+@GetMapping("/user-nicknames/(nickname)/exists")
+public ResponseEntity<Boolean> checkNicknameDuplicate (@PathVariable String nickname) {
+return ResponseEntity.ok(userService.checkNickname Duplicate (nickname));
+
+닉네임또는 이메일 중복 여부 확인은 UserService에서 진행
+--service
+public boolean checkEmail Duplicate (String email) { return userRepository.existsByEmail (email);
+}
+public boolean checkNickname Duplicate (String nickname) { return userRepository.existsByNickname (nickname);
+}
+
+--repository
+boolean existsByEmail (String email);
+boolean existsByNickname(String nickname);
+
+///////////////////////////////////////////
+
+수정 페이지 혹은 로그인 페이지에서 휴대폰 번호 인증하는 기능을 처리하는 스프링 부트 컨트롤러와 서비스의 예시
+
+// PhoneVerificationController.java
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class PhoneVerificationController {
+
+    @PostMapping("/verify-phone")
+    public String verifyPhoneNumber(@RequestBody String verificationCode) {
+        // 클라이언트로부터 받은 인증 코드를 확인하는 로직을 작성.
+        // 여기서는 간단히 받은 인증 코드를 그대로 반환.
+        return verificationCode;
+    }
+}
+
+
+
+// ProfileEditService.java
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProfileEditService {
+
+    public void verifyPhoneNumber(String verificationCode) {
+        // 받은 인증 코드를 확인하고 인증 로직을 처리하는 서비스 메서드를 작성.
+        // 이 메서드에서는 실제로 휴대폰 번호를 인증하는 로직을 구현해야 함.
+        // 데이터베이스 조회 등의 작업이 수반될 수 있음.
+        // 여기서는 간단히 받은 인증 코드를 콘솔에 출력.
+        System.out.println("Received verification code: " + verificationCode);
+    }
+}
+클라이언트에서 인증 코드를 서버로 전송하고, 서버에서는 이를 확인하여 인증하는 로직을 구현할 수 있음. 
+클라이언트에서는 버튼을 클릭하여 휴대폰 번호 인증 팝업을 열고, 인증 코드를 입력하면 서버로 전송하고 결과를 받아 처리할 수 있음.
+
+========================================================================
+프로필 이미지를 업로드하고 삭제하는 기능, Spring의 MultipartFile을 사용하여 파일 업로드를 처리, 이미지를 저장하고 삭제하는 기능을 구현, 간단한 스프링 부트 컨트롤러와 서비스의 예시
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+
+@RestController
+public class ProfileImageController {
+
+    private static final String UPLOAD_DIR = "uploads";
+
+    @Autowired
+    private ProfileEditService profileEditService;
+
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
+        if (file.isEmpty()) {
+            return new ResponseEntity<>("이미지를 선택해주세요.", HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            // 업로드 디렉토리가 없으면 생성.
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            // 파일을 업로드 디렉토리에 저장함.
+            String fileName = file.getOriginalFilename();
+            String filePath = UPLOAD_DIR + "/" + fileName;
+            file.transferTo(new File(filePath));
+
+            // 파일 경로를 서비스로 전달하여 저장하거나 처리할 수 있음.
+            profileEditService.saveImage(filePath);
+
+            return new ResponseEntity<>("이미지가 업로드되었습니다.", HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("이미지 업로드에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete-image")
+    public ResponseEntity<String> deleteImage(@RequestParam("imageName") String imageName) {
+        // 파일을 삭제하거나 처리하는 로직을 여기에 구현.
+
+
+        // 여기서는 단순히 파일을 삭제하는 예시를 보여줌.
+        String filePath = UPLOAD_DIR + "/" + imageName;
+        File imageFile = new File(filePath);
+        if (imageFile.exists()) {
+            imageFile.delete();
+            return new ResponseEntity<>("이미지가 삭제되었습니다.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("이미지를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        }
+    }
+}
+
+이 컨트롤러에서 /upload-image 엔드포인트는 이미지를 업로드하고, /delete-image 엔드포인트는 이미지를 삭제함. 
+프로필 이미지의 경우 파일로 저장되므로, 업로드된 이미지를 저장하고 삭제하는 로직을 추가로 구현할 필요가 있음
+프로필 편집 페이지에서 등록 버튼을 클릭하면 이미지를 업로드하고, 삭제 버튼을 클릭하면 이미지를 삭제하는 로직을 추가하여  프로필 이미지 관련 기능을 완성할 수 있음.
+===========================================================================
+ fetch API를 사용하여 백엔드와 통신
+아래는 수정된 ProfileEditPage 컴포넌트
+
+import React, { useState } from 'react';
+
+function ProfileEditPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [image, setImage] = useState(null);
+
+  const handleEmailCheck = async () => {
+    try {
+      const response = await fetch(`/user-emails/${email}/exists`);
+      const data = await response.json();
+      if (data) {
+        console.log('중복된 이메일입니다.');
+      } else {
+        console.log('사용 가능한 이메일입니다.');
+      }
+    } catch (error) {
+      console.error('이메일 중복 확인 중 오류 발생:', error);
+    }
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    // 이미지 업로드 처리
+    setImage(file);
+  };
+
+  const handleImageDelete = () => {
+    // 이미지 삭제 처리
+    setImage(null);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 수정 완료 로직
+    console.log('수정 완료');
+  };
+
+  return (
+    <div>
+      <header>
+        <span style={{ fontSize: '20px' }}>회원정보 수정</span>
+        <button>홈</button>
+        <button>로그인</button>
+      </header>
+      <h2>프로필 수정</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="profileImage">프로필 사진:</label>
+          {image ? (
+            <>
+              <img src={URL.createObjectURL(image)} alt="프로필 이미지" />
+              <button type="button" onClick={handleImageDelete}>삭제</button>
+            </>
+          ) : (
+            <>
+              <input type="file" id="profileImage" accept="image/*" onChange={handleImageUpload} />
+              <span>- 프로필 사진을 등록해주세요.</span>
+              <span>- 이미지 파일 최대크기 2MB 미만</span>
+            </>
+          )}
+        </div>
+        <div>
+          <label htmlFor="email">이메일 주소:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handleEmailCheck}>중복확인</button>
+        </div>
+        <div>
+          <label htmlFor="password">비밀번호:</label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handlePasswordVisibility}>
+            {showPassword ? '비공개' : '보기'}
+          </button>
+        </div>
+        <div>
+          <label htmlFor="confirmPassword">비밀번호 확인:</label>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            required
+          />
+          <button type="button" onClick={handlePasswordVisibility}>
+            {showPassword ? '비공개' : '보기'}
+          </button>
+        </div>
+        <div>
+          <label htmlFor="name">이름:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="nickname">닉네임:</label>
+          <input
+            type="text"
+            id="nickname"
+            value={nickname}
+            onChange={(event) => setNickname(event.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phoneNumber">휴대폰 번호:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            value={phoneNumber}
+            onChange={(event) => setPhoneNumber(event.target.value)}
+            required
+          />
+          <select>
+            <option>SKT</option>
+            <option>KT</option>
+            <option>LG U+</option>
+          </select>
+          <button type="button">통신사 인증</button>
+        </div>
+        <button type="submit">수정 완료</button>
+      </form>
+    </div>
+  );
+}
+
+export default ProfileEditPage;
+
+위 코드에서 handleEmailCheck 함수는 클릭 이벤트가 발생하면 이메일 중복 확인을 위한 요청을 보내고, 
+서버의 응답에 따라 콘솔에 로그를 출력. 요청은 fetch 함수를 사용하여 비동기적으로 수행됨.
+=======================================================================
+
+//////////////////////////////////////////////////////////////////////
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+function UserProfile() {
+  // 스프링부트와 API통신을 위한 기본 URL 변수설정
+  const baseUrl = "http://localhost:8080";
+  // Navigate 이용을 위한 함수 호출
+  const navigate = useNavigate();
+  // useState 변수설정
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [joinDate, setJoinDate] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [pwChecked, setPwChecked] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // 통신사 인증 팝업 상태
+
+  // 이미지 파일 업로드 처리
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setProfileImage(file);
+  };
+
+  // 이미지 삭제 처리
+  const handleImageDelete = () => {
+    setProfileImage(null);
+  };
+
+  // 회원 정보 수정 버튼 클릭시 실행
+  const handleUpdate = () => {
+    // 변경된 회원 정보를 서버로 전송하는 로직 구현
+    // axios를 사용하여 회원 정보 수정 요청을 보냄
+    axios({
+      method: "PUT",
+      url: baseUrl + "/updateUserProfile",
+      data: {
+        userEmail: email,
+        userPw: password,
+        userName: name,
+        userNickname: nickname,
+        userPhone: phoneNumber,
+        // 다른 필드도 추가로 전송할 수 있음
+      },
+      headers: { "Content-type": "application/json" },
+    })
+      .then((res) => {
+        alert("회원 정보가 성공적으로 수정되었습니다.");
+        console.log(res.data);
+        navigate("/userProfile"); // 수정된 회원 정보 페이지로 이동
+      })
+      .catch((error) => {
+        console.log("회원 정보 수정 오류 발생\n 오류 내용 : " + error);
+        console.log(error);
+      });
+  };
+
+  // 이메일 중복 확인 로직
+  const handleEmailCheck = () => {
+    if (!email) {
+      alert("이메일을 입력해주세요");
+    } else {
+      console.log("이메일 중복 확인");
+
+      axios({
+        method: "POST",
+        url: baseUrl + "/signupEmailCheck",
+        data: {
+          userEmail: email,
+        },
+        headers: { "Content-type": "application/json" },
+      })
+        .then((res) => {
+          if (res.data === 0) {
+            alert("중복 이메일이 없습니다.");
+            setEmailChecked(true);
+          } else {
+            alert("중복된 이메일이 존재합니다.");
+          }
+          console.log(res.data);
+        })
+        .catch((error) => {
+          alert("이메일 중복 체크중 오류 발생");
+          console.log(error);
+        });
+    }
+  };
+
+  // 통신사 인증 팝업 열기
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    // 팝업 열기에 필요한 로직 구현
+  };
+
+  // 통신사 인증 팝업 닫기
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    // 팝업 닫기에 필요한 로직 구현
+  };
+
+  return (
+    <div className="bg-grey-lighter min-h-screen flex flex-col">
+      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
+          <h1 className="mb-8 text-3xl text-center">회원 정보 수정</h1>
+
+          {/* 프로필 사진 업로드 */}
+          <div className="mb-4">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+            {profileImage && (
+              <div>
+                <img src={URL.createObjectURL(profileImage)} alt="Profile" />
+                <button onClick={handleImageDelete}>이미지 삭제</button>
+              </div>
+            )}
+          </div>
+
+          {/* 기타 입력 필드 이름,닉네임 등 회원가입페이지 코드 이용*/}
+        
+
+          {/* 통신사 인증 버튼 */}
+          <button onClick={openPopup}>통신사 인증</button>
+          {isPopupOpen && (
+            <div className="popup">
+              {/* 통신사 인증 팝업 내용 */}
+              <button onClick={closePopup}>닫기</button>
+            </div>
+          )}
+
+          {/* 회원 정보 수정 버튼 */}
+          <button
+            type="submit"
+            className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-dark focus:outline-none my-1"
+            onClick={handleUpdate}
+          >
+            수정 완료
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default UserProfile;
+
+////////////////////////////////////////////
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function SignUpForm() {
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [inputCode, setInputCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const sendEmail = () => {
+    if (!email.trim()) {
+      alert("이메일 주소를 입력해주세요.");
+      return;
+    }
+
+    axios.post("/infoCheck/sendEmail", { email })
+      .then(() => alert("인증번호가 전송되었습니다."))
+      .catch(() => alert("인증번호 전송에 실패했습니다."));
+  };
+
+  const verifyCode = () => {
+    if (!inputCode.trim()) {
+      alert("인증번호를 입력해주세요.");
+      return;
+    }
+
+    axios.post("/infoCheck/verifyCode", { inputCode })
+      .then(response => {
+        if (response.data) {
+          alert("인증번호가 일치합니다.");
+          setVerificationCode(inputCode);
+        } else {
+          alert("인증번호가 일치하지 않습니다.");
+        }
+      })
+      .catch(() => alert("인증번호 확인에 실패했습니다."));
+  };
+
+  const signUp = () => {
+    if (!email.trim() || !password.trim() || !confirmPassword.trim() || !verificationCode.trim()) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
+
+    axios.post("/SignUpForm/SignUpFormSumitCheck", {
+      email,
+      password,
+      confirmPassword,
+      verificationCode
+    })
+    .then(response => {
+      if (response.data === "Emailno") {
+        alert("이메일을 확인해주세요.");
+      } else if (response.data === "PWno") {
+        alert("비밀번호를 확인해주세요.");
+      } else {
+        alert("회원가입 성공.");
+        // 회원가입 성공 시 처리
+      }
+    })
+    .catch(error => console.error("에러 발생: ", error));
+  };
+
+  return (
+    <div>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <button onClick={sendEmail}>인증번호 전송</button>
+      
+      <input type="text" value={inputCode} onChange={(e) => setInputCode(e.target.value)} />
+      <button onClick={verifyCode}>인증번호 확인</button>
+
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      <button onClick={signUp}>회원가입</button>
+    </div>
+  );
+}
+
+export default SignUpForm;
+
+
+Axios를 사용하여 이메일 전송 및 인증번호 확인을 처리하고, 사용자가 이메일 주소를 입력하고 인증번호를 요청하면 해당 이메일 주소로 인증번호가 전송됨.
+
+
+이전에 이메일 중복확인 코드 찾아보다가 본건데 혹시 몰라 코드 저장해뒀었습니다. 
+

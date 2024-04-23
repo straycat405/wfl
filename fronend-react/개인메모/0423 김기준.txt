@@ -1,0 +1,10 @@
+프로젝트 - Properties - Java Compiler - Store .... 체크
+
+build.gradle
+
+compileJava {
+   options.compilerArgs << '-parameters'
+}
+
+추가
+
