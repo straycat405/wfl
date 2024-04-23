@@ -1,0 +1,56 @@
+/* .form-input {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    padding: 4px;
+    border: 2px solid gray;
+    border-radius: 4px;
+    resize: none;
+}
+
+.form-input:hover,
+.form-input:focus
+{
+    border: 2px solid lightgreen;
+    border-radius: 4px;
+    background-color: rgb(240, 255, 255);
+}
+.tab {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px auto;
+}
+
+.tab th,
+.tab td {
+    padding: 8px;
+}
+
+.tab th {
+    background-color: lawngreen;
+    color: white;
+}
+
+.tab tr:hover {
+    background-color: inherit;
+}
+
+.tab th:nth-child(1),
+.tab td:nth-child(1) {
+    width: 10%;
+}
+
+.tab th:nth-child(2),
+.tab td:nth-child(2) {
+    width: 50%;
+}
+
+.tab th:nth-child(3),
+.tab td:nth-child(3) {
+    width: 20%;
+}
+
+.tab th:nth-child(4),
+.tab td:nth-child(4) {
+    width: 20%;
+} */

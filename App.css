@@ -1,0 +1,40 @@
+.con {
+    width: 1024px;
+    margin: 50px auto;
+}
+
+h1.tit {
+    text-align: center;
+}
+
+.but-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.but {
+    display: inline-block;
+    min-width: 100px;
+    min-height: 20px;
+    line-height: 20px;
+    padding: 12px 4px;
+    box-sizing: border-box;
+    background-color: inherit;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.but:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.but:active {
+    box-shadow: none;
+}
