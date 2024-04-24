@@ -24,4 +24,5 @@ public interface UserMapper {
 	int setProfile(User user);
 	int deleteUser(int userId);
 	ArrayList<User> searchUser(Map<String,Object> map);
+	User getByEmail(String email);
 }

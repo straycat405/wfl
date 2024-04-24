@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SHA256 } from "crypto-js";
 
@@ -77,8 +77,12 @@ export default function Login() {
     }
   
     return(
-<div className="bg-grey-lighter min-h-screen flex flex-col">
-            <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+      <>
+
+
+
+<div className="bg-grey-lighter m-20">
+            <div className="container max-w-sm mx-auto items-center justify-center px-2">
                 <div className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">로그인</h1>
                     <input 
@@ -107,7 +111,7 @@ export default function Login() {
 
                 </div>
 
-                <div className="text-grey-dark mt-6">
+                <div className="text-grey-dark mt-6 translate-x-12">
                     <button className="inline-block px-5 hover:text-green-500"
                             onClick={()=>navigate("/findId")}>
                         아이디 찾기
@@ -123,5 +127,6 @@ export default function Login() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

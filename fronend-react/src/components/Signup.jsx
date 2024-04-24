@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { SHA256 } from "crypto-js";
+import { useLocation } from "react-router-dom";
 
 function SignUp() {
+  //네이버 로그인에서 받아온 데이터
+  const location = useLocation();
+
+
+  
   //스프링부트와 API통신을 위한 기본 URL 변수설정
   const baseUrl = "http://localhost:8080";
   //Navigate 이용을 위한 함수 호출
@@ -18,6 +24,12 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailChecked, setEmailChecked] = useState(false);
   const [pwChecked, setPwChecked] = useState(false);
+
+  useEffect(()=> {
+      setEmail( location?.state?.email );
+      setName( location?.state?.name );
+      setNickName( location?.state?.nickname );
+  },[]);
 
   //비밀번호 암호화
   const hash = SHA256(password).toString();
@@ -153,6 +165,13 @@ function SignUp() {
   };
 
   return (
+    <>
+<button onClick={() => {
+  console.log(location.state.email);
+  console.log(location.state.name);
+  console.log(location.state.nickname);
+  
+  }}>test</button>
 <div className="bg-grey-lighter min-h-screen flex flex-col">
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                 <div className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
@@ -250,6 +269,7 @@ function SignUp() {
                 </div>
             </div>
         </div>
+        </>
   );
 }
 export default SignUp;

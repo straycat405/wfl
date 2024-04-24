@@ -13,7 +13,12 @@ export default function AccountSetting() {
         alert("로그인이 필요한 페이지입니다.");
         navigate("/");
       }
-    }, []);
+      if (loginedUser.userProfile) {
+        setImage(loginedUser.userProfile);
+      } else {
+        setImage(defaultImg);
+      }
+    }, [sessionStorage]);
 
   //로그인중인 유저정보
   let loginedUser = JSON.parse(sessionStorage.getItem("loginedUser"));
@@ -36,14 +41,9 @@ export default function AccountSetting() {
   const [editedPhone, setEditedPhone] = useState(
     !loginedUser ? "" : loginedUser.userPhone
   );
-  const [image, setImage] = useState(defaultImg);
-  const fileInput = useRef(null);
+  const [image, setImage] = useState(!loginedUser ? defaultImg : loginedUser.userProfile);
 
-  useEffect(()=> { // 컴포넌트 업로드시 프로필사진 위치에 세션의 프로필경로의 이미지로 세팅 (없으면 기본프로필)
-    if (loginedUser.userProfile) {
-      setImage(loginedUser.userProfile);
-    }
-  }, []);
+  const fileInput = useRef(null);
 
   // 유저 정보 수정 공간 label <-> input 스왑을 위한 useState 설정
   const [classLabelSet, setClassLabelSet] = useState(

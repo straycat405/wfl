@@ -1,6 +1,7 @@
 package com.wfl.mbtest.user;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +76,10 @@ public class UserService {
 		System.out.println("UserService.searchUser()");
 		return userMapper.searchUser(map);
 	}
-
+	
+	public User getByEmail(String email) {
+		System.out.println("UserService.emailCheck()");
+		return userMapper.getByEmail(email);
+	}
+	
 }

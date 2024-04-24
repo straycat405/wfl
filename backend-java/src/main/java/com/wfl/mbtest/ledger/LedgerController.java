@@ -3,6 +3,7 @@ package com.wfl.mbtest.ledger;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -298,33 +299,77 @@ public class LedgerController {
 		return json;
 	}
 	
-	@GetMapping("/getExcelMonthData")
-	public void getExcelMonthData(HttpServletResponse response) throws IOException {
+	@PostMapping("/getExcelMonthData")
+	public void getExcelMonthData(
+			HttpServletRequest request,
+			HttpServletResponse response ) throws IOException {
 		
-		List<String> list = new ArrayList<String>();
+		// 다운받은 데이터 셋업
+		System.out.println("엑셀 다운로드 시작");	
+		System.out.println("다운받을 가계부 유저 ID : " + request.getParameter("userId"));
+		System.out.println("다운받을 가계부 유저명 : " + request.getParameter("userName"));
+		System.out.println("조회 연도 : " + request.getParameter("year"));
+		System.out.println("조회 월 : " + request.getParameter("month"));
 		
-		list.add("123");
-		list.add("456");
-		list.add("789");
+		Spending spending = new Spending();
+		
+		String userName = request.getParameter("userName");
+		String userId = request.getParameter("userId");
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		
+		spending.setUserId(Integer.parseInt(userId));
+		spending.setYear(Integer.parseInt(year));
+		spending.setMonth(Integer.parseInt(month));
+		
+		System.out.println("-------------------------------------");
+		System.out.println(spending.getUserId());
+		System.out.println(spending.getYear());
+		System.out.println(spending.getMonth());
+		
+		ArrayList<Spending> monthList = ledgerService.getTotalSpending(spending);
+		
+		//엑셀파일 작성
+		Workbook wb = new XSSFWorkbook();
+		Sheet sheet = wb.createSheet();
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+        
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("연도");
+        cell = row.createCell(1);
+        cell.setCellValue("월");
+        cell = row.createCell(2);
+        cell.setCellValue("일");
+        cell = row.createCell(3);
+        cell.setCellValue("지출합계(원)");
+        
+        // Body
+        for (int i=0; i<monthList.size(); i++) {
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(monthList.get(i).getYears());
+            cell = row.createCell(1);
+            cell.setCellValue(monthList.get(i).getMonths());
+            cell = row.createCell(2);
+            cell.setCellValue(monthList.get(i).getDays());
+            cell = row.createCell(3);
+            cell.setCellValue(monthList.get(i).getDaystotal());
+        }
+        
+        // 컨텐츠 타입과 파일명 지정
+        String fileName = userName + "님의_" + year + "년_" + month + "월_" + "지출내역" + ".xlsx";
+        String encodedFileName = "attachment; filename*=" + "UTF-8" + "''" + URLEncoder.encode(fileName, "UTF-8");
+        
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", encodedFileName);
 
-		//액셀 객체 파일 생성
-		Workbook wb = new HSSFWorkbook();
-		//시트 생성
-		Sheet sheet = wb.createSheet("Test Sheet");
-		//셀 스타일 생성
-		CellStyle style = wb.createCellStyle();
-		
-		//타이틀 행 생성. 첫째줄
-		Row titleRow = sheet.createRow(0);
-		// 첫째줄 (0번인덱스)
-		int titleColNum = 0;
-		
-		// 첫번째 행의 첫번째 열 지정
-		Cell titleCell = titleRow.createCell(titleColNum);
-		//setCellValue 값 넣기
-		titleCell.setCellValue("This is Test"); 
-		// Row -> setHeight (행 높이 조절)
-		titleRow.setHeight((short)920);
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
 		
 	}
 

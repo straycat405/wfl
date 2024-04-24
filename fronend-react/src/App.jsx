@@ -27,6 +27,9 @@ import BoardListPage from './pages/BoardListPage.jsx';
 import BoardReadPage from './pages/BoardReadPage.jsx';
 import BoardInsertPage from './pages/BoardInsertPage.jsx';
 import BoardUpdatePage from './pages/BoardUpdatePage.jsx';
+import RedirectURI from './components/Naver/RedirectURI.jsx';
+import Naver from './components/Naver/Naver.jsx';
+import NaverLoginSuccessPage from './pages/NaverLoginSuccessPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -60,9 +63,11 @@ const router = createBrowserRouter([
     { path: "/Home/boards", element: <BoardListPage /> },
     { path: "/Home/boards/:no", element: <BoardReadPage /> },
     { path: "/Home/boards/insert", element: <BoardInsertPage />},
-    { path: "/Home/boards/update/:no", element: <BoardUpdatePage />}
+    { path: "/Home/boards/update/:no", element: <BoardUpdatePage />},
     //
 
+    // 네이버 로그인 콜백
+    { path: "/naver/callback", element: <NaverLoginSuccessPage />},
 
 ]);
 

@@ -73,4 +73,8 @@
 
 	</select>
 	
+	<select id="getByEmail" parameterType="String" resultType="user">
+		SELECT * FROM USERLIST WHERE userEmail LIKE #{email};
+	</select>
+	
 </mapper>

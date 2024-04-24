@@ -198,12 +198,20 @@ export default function LedgerMain() {
                   >
                     지출 작성하기
                   </button>
+                  <form action = {baseUrl + "/getExcelMonthData"} method="post">
+                  <input type="text" name="userId" value={ loginedUser.userId } hidden></input>
+                  <input type="text" name="userName" value={ loginedUser.userName } hidden></input>
+                  <input type="text" name="year" value={selectedYear} hidden></input>
+                  <input type="text" name="month" value={selectedMonth.substr(5,2)} hidden></input>
                   <button
+                    type="submit"
                     className="w-32 m-4 p-3 rounded text-sm bg-green-500 hover:bg-green-600 text-white"
-                    onClick={getExcelData}
                     >
                                         엑셀 다운로드
                   </button>
+                  </form>
+                  <div>
+    </div>
                 </div>
               </div>
             </div>
