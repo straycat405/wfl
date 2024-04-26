@@ -1,10 +1,11 @@
 
 package com.wfl.mbtest.board.dto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,7 @@ public interface BoardMapper {
    
    //게시글 업데이트
    public int updateViews(int count, int no) throws Exception;
-
+   
+   //게시글 검색
+   public ArrayList<Board> searchBoard(Map<String,Object> map);
 }

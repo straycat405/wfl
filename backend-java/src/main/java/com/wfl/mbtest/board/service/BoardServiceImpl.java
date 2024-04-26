@@ -1,6 +1,8 @@
 package com.wfl.mbtest.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,12 @@ public class BoardServiceImpl implements BoardService{
    public int updateViews(int count, int no) throws Exception {
       int result = boardMapper.updateViews(count, no);
       return result;
+   }
+   
+   @Override
+   public ArrayList<Board> searchBoard(Map<String,Object> map) {
+      System.out.println("BoardService.searchBoard()");
+      return boardMapper.searchBoard(map);
    }
 
 }

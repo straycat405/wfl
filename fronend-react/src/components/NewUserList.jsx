@@ -61,16 +61,22 @@ export default function NewUserList() {
     <>
       <h2 className="m-auto text-center text-3xl"> 유저 리스트 </h2>
 
-      <div>
-        <input value={inputValue} onChange={(e) => setInputValue(e.target.value)}></input>
-        <select onChange={(e) => setSelected(e.target.value)} value={selected}>
+      <div className="w-screen flex m-auto p-4">
+        <input 
+        className="m-4"
+        value={inputValue} onChange={(e) => setInputValue(e.target.value)}></input>
+        <select 
+        className="m-4"
+        onChange={(e) => setSelected(e.target.value)} value={selected}>
             <option value="userId">유저 ID</option>
             <option value="userEmail">이메일 주소</option>
             <option value="userName">이름</option>
             <option value="userNickname">닉네임</option>
 
         </select>
-        <button onClick={searchForCategory}>검색</button>
+        <button 
+        className="w-16 m-4 rounded bg-green-500 hover:bg-green-600 text-white"
+        onClick={searchForCategory}>검색</button>
 
 
       </div>

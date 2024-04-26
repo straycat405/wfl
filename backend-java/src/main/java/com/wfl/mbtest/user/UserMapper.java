@@ -25,4 +25,6 @@ public interface UserMapper {
 	int deleteUser(int userId);
 	ArrayList<User> searchUser(Map<String,Object> map);
 	User getByEmail(String email);
+	int resignUser(int userId);
+	int unResignUser(int userId);
 }

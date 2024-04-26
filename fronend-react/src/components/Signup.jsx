@@ -78,13 +78,13 @@ function SignUp() {
   }
 
   //닉네임 미입력시 무작위 닉네임 지정
-
   const nicknameMaker = () => {
 
     const adjective = ['고독한','신나는','센치한','즐거운','웃는','우는','심심한','멋진',]
     const color = ['빨간','파란','노란','초록','하얀','검정','보라색','은빛','금빛']
     const animal = ['고양이','강아지','참새','병아리','돌고래','기린','코끼리','나무늘보']
 
+    //Math.ramdom 값에 인덱스 수만큼 곱하고 소수점 제거(내림) >> 무작위 인덱스 번호 생성
     const adjectiveIndex = Math.floor(Math.random()*adjective.length);  
     const colorIndex = Math.floor(Math.random()*color.length);
     const animalIndex = Math.floor(Math.random()*animal.length);

@@ -82,4 +82,12 @@ public class UserService {
 		return userMapper.getByEmail(email);
 	}
 	
+	public int resignUser(int userId) {
+		return userMapper.resignUser(userId);
+	}
+	
+	public int unResignUser(int userId) {
+		return userMapper.unResignUser(userId);
+	}
+	
 }

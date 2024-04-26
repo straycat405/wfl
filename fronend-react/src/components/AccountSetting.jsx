@@ -100,6 +100,8 @@ export default function AccountSetting() {
           // 세션 비우고 업데이트된 유저객체로 리셋
           sessionStorage.clear();
           sessionStorage.setItem("loginedUser", JSON.stringify(res.data));
+          console.log("프로필 이미지 변경 완료");
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error);
@@ -118,9 +120,6 @@ export default function AccountSetting() {
 
     setImage(loginedUser.userProfile);
     
-    // 네비게이션바 프로필이미지 최신화를 위한 페이지 리로드
-    // 좋은 코딩방법은 아님
-    location.reload();
   };
 
   // 수정버튼 누르면 label <-> input 교체
@@ -231,8 +230,35 @@ export default function AccountSetting() {
     }
   }
 
+  //회원 탈퇴
+  function resignUser(userId) {
+    if(confirm("정말 탈퇴하시겠습니까?")) {
+          axios({
+      method: "GET",
+      url: baseUrl + "/resignUser?userId=" + userId,
+    })
+      .then((res) => {
+        alert(res.data);
+        sessionStorage.clear();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("탈퇴 처리중 오류 발생 : " + error);
+        console.log(error);
+      });
+    }
+
+  }
+
+  function test() {
+    console.log(sessionStorage.getItem("loginedUser").userId);
+    console.log(JSON.parse(sessionStorage.getItem("loginedUser")).userId);
+  }
+
   return (
+  
     <>
+      <button onClick={test}>test</button>
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-lg mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-gray-100 px-6 py-8 rounded shadow-md text-black w-full">
@@ -363,6 +389,14 @@ export default function AccountSetting() {
             >
               회원 정보 수정
             </button>
+            <button
+              type="submit"
+              className="w-full text-center py-3 rounded bg-red-500 text-white hover:bg-red-600 focus:outline-none my-1"
+              onClick={()=>resignUser(loginedUser.userId)}
+            >
+              회원 탈퇴
+            </button>
+            
           </div>
         </div>
       </div>

@@ -7,12 +7,28 @@ import axios from "axios";
 
 function UserTable({ data }) {
   function deleteUser(userId) {
-    if (confirm(`정말 ${userId} 유저 삭제?`)) {
+    if (confirm(`정말 ${userId} 유저를 삭제하시겠습니까?`)) {
       console.log("삭제할 유저 아이디 : " + userId);
       axios
         .delete("http://localhost:8080/deleteUser?userId=" + userId)
         .then((res) => {
           alert("삭제 완료");
+          console.log(res);
+          location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  function unResignUser(userId) {
+    if (confirm(` ${userId} 유저를 복구합니다.`)) {
+      console.log("복구할 유저 아이디 : " + userId);
+      axios
+        .get("http://localhost:8080/unResignUser?userId=" + userId)
+        .then((res) => {
+          alert("복구 완료");
           console.log(res);
           location.reload();
         })
@@ -59,8 +75,12 @@ function UserTable({ data }) {
                       탈퇴여부
                     </th>
                     <th scope="col" className="px-6 py-4 ">
+                      복구하기
+                    </th>
+                    <th scope="col" className="px-6 py-4 ">
                       삭제하기
                     </th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -88,12 +108,21 @@ function UserTable({ data }) {
                         {i.adminAuth == 0 ? "일반사용자" : "관리자"}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {i.userPremium}
+                        {i.userPremium == 0 ? "미사용" : "구독중"}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {i.userResign == 1 ? "탈퇴" : " X "}
                       </td>
 
+
+                      <td>
+                        <button
+                          className="whitespace-nowrap px-6 py-4"
+                          onClick={() => unResignUser(i.userId)}
+                        >
+                          {i.userResign == 1 ? '복구' : null}                          
+                        </button>
+                      </td>
                       <td>
                         <button
                           className="whitespace-nowrap px-6 py-4"

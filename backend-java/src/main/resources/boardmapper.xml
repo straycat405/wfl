@@ -47,4 +47,21 @@
       WHERE no = #{no}   
    </update>
    
+      <!-- 게시판 검색-->
+   <select id="searchBoard" parameterType="HashMap" resultType="Board">
+      SELECT * FROM board <choose>
+         <when test="value ==null">
+         </when>
+         <when test="category == 'title'">
+            WHERE title LIKE '%'||#{value}||'%'
+         </when>
+         <when test="category == 'content'">
+            WHERE content LIKE '%'||#{value}||'%'
+         </when>
+         <when test="category == 'userNickname'">
+            WHERE userNickname LIKE '%'||#{value}||'%'
+         </when>
+      </choose>
+   </select>
+   
 </mapper>

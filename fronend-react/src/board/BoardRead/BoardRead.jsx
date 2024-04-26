@@ -9,7 +9,6 @@ const BoardRead = ({ no, board }) => {
 
     return (
         <div className={styles.con}>
-            <h3>{board.title}</h3>
             <hr />
             <table className={styles.tab}>
                 <tbody>
@@ -51,6 +50,8 @@ const BoardRead = ({ no, board }) => {
             <div className={styles['but-box']}>
                 <Link to="/Home/boards" className={`but ${styles.but}`}>목록</Link>
                 { board.userNickname == loginedUser.userNickname ?
+                <Link to={`/Home/boards/update/${no}`} className={`but ${styles.but} ${styles.update}`}>수정</Link> : '' }
+                { loginedUser.adminAuth == 1 ?
                 <Link to={`/Home/boards/update/${no}`} className={`but ${styles.but} ${styles.update}`}>수정</Link> : '' }
             </div>
         </div>

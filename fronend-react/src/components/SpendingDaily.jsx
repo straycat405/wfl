@@ -127,7 +127,7 @@ export default function SpendingDaily() {
 
   // 모달 내용 (지출 입력)
 
-  //테스트
+  // 카테고리 선택
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
@@ -151,6 +151,8 @@ export default function SpendingDaily() {
   for (let i = 0; i < spendingCategoryList.length; i++) {
     category1.push(key in spendingCategoryList);
   }
+
+  //지출 입력 모달
 
   const modalContent = (
     <div>
@@ -189,6 +191,7 @@ export default function SpendingDaily() {
           <label className="m-4">지출 카테고리 선택:</label>
           <select 
           
+          // 1차 카테고리 선택
           value={selectedCategory?.id} onChange={handleCategoryChange}>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -197,6 +200,7 @@ export default function SpendingDaily() {
             ))}
           </select>
 
+          {/* 1차 선택 후 2차 카테고리 선택 */}
           {selectedCategory && (
             <div className="m-2">
               <label className="m-4">하위 카테고리 선택:</label>
@@ -204,6 +208,7 @@ export default function SpendingDaily() {
                 value={selectedSubCategory?.id}
                 onChange={handleSubCategoryChange}
               >
+                {/* 1차에서 선택된 카테고리의 하위 카테고리로 접근 */}
                 {selectedCategory.subCategories.map((subCategory) => (
                   <option key={subCategory.id} value={subCategory.id}>
                     {subCategory.name}

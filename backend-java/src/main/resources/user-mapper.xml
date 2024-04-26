@@ -77,4 +77,14 @@
 		SELECT * FROM USERLIST WHERE userEmail LIKE #{email};
 	</select>
 	
+	<update id="resignUser" parameterType="Int">
+		UPDATE USERLIST SET userResign = 1
+				 WHERE userId = #{userId}
+	</update>
+	
+		<update id="unResignUser" parameterType="Int">
+		UPDATE USERLIST SET userResign = 0
+				 WHERE userId = #{userId}
+	</update>
+	
 </mapper>

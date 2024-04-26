@@ -33,7 +33,6 @@ const BoardUpdateForm = ({ no, board, onUpdate, onDelete }) => {
 
     return (
         <div className={styles.con}>
-            <h3>{board.title}</h3>
             <hr />
             <table className={styles.tab}>
                 <tbody>

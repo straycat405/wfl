@@ -30,6 +30,7 @@ import BoardUpdatePage from './pages/BoardUpdatePage.jsx';
 import RedirectURI from './components/Naver/RedirectURI.jsx';
 import Naver from './components/Naver/Naver.jsx';
 import NaverLoginSuccessPage from './pages/NaverLoginSuccessPage.jsx';
+import KakaoAuth from './components/Kakao/KakaoAuth.jsx';
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,9 @@ const router = createBrowserRouter([
 
     // 네이버 로그인 콜백
     { path: "/naver/callback", element: <NaverLoginSuccessPage />},
+
+    // 카카오 로그인 콜백
+    { path: "/kakao/auth", element: <KakaoAuth />},
 
 ]);
 

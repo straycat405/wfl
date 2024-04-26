@@ -34,6 +34,7 @@ export default function Navbar() {
     if (loginedUser) {
       setProfileSet("size-10 rounded-full overflow-hidden");
       setProfile(loginedUser.userProfile ? `${loginedUser.userProfile}` : defaultImg);
+      //setProfile("/src/assets/profileimages/myprofile.jpg");
     }
   }, [profile, useNavigate()]);
 
@@ -86,6 +87,7 @@ export default function Navbar() {
         >
           WFL
         </Link>
+        { loginedUser?.adminAuth == 1 ? <button onClick={()=>navigate("/admin/main")}>관리자 접속</button> : ''}
         <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:ps-5">
         <img src={profile} alt="profile" className={profileSet}/>
         <span
@@ -145,9 +147,6 @@ export default function Navbar() {
 
           </div>
         </Menu.Items>
-
-
-
         
       </Transition>
     </Menu>

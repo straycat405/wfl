@@ -39,16 +39,15 @@ export default function Login() {
               headers: { "Content-type": "application/json" },
             })
               .then((res) => {
-                if (res.data !== null) {
-                console.log(res.data);
+
+                if (res.data !== "") {
+
                 alert("로그인 성공");
-                // sessionStorage 초기화
                 sessionStorage.clear();
-                // sessionStorage에 백에서 받아온 유저정보 String으로 저장 (json형식)
                 sessionStorage.setItem('loginedUser', JSON.stringify(res.data));
 
                 let loginedUser = JSON.parse(sessionStorage.getItem('loginedUser'));
-                // sessionStorage의 adminAuth값이 0이면 일반사용자, 1이면 관리자
+
                 if (loginedUser.adminAuth == 1) {
                   navigate("/admin/main");
                 } else {
@@ -57,7 +56,7 @@ export default function Login() {
 
                 
             } else {
-                alert("로그인 실패 : 이메일과 비밀번호를 확인해주세요.");
+                alert("로그인 실패 : 이미 탈퇴한 계정입니다.");
             }
               })
               .catch((error) => {

@@ -1,6 +1,9 @@
 package com.wfl.mbtest.board.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.wfl.mbtest.board.dto.Board;
 import com.wfl.mbtest.board.service.BoardService;
 
@@ -106,5 +111,31 @@ public class BoardController {
          log.error(null, e);
          return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
       }
+      
+      
+   }
+   
+   // 게시판 검색
+   @PostMapping("/searchBoard")
+   public String searchBoard (@RequestParam("category") String category,
+                        @RequestParam("value") String value) {
+      System.out.println("BoardController.searchBoard()");
+      
+      System.out.println("검색할 카테고리 : " + category);
+      System.out.println("검색할 키워드 : " + value);
+      
+      Map<String,Object> map = new HashMap<String,Object>();
+      
+      map.put("category", category);
+      map.put("value", value);
+      
+      ArrayList<Board> searchedBoard = boardService.searchBoard(map);
+      
+      for (int i=0; i < searchedBoard.size() ; i++ )
+      System.out.println("검색 결과 작성자 : " + searchedBoard.get(i).getUserNickname());
+      
+      String json = new Gson().toJson(searchedBoard);
+      
+      return json;
    }
 }

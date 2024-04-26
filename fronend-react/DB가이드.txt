@@ -235,4 +235,4 @@ CREATE TABLE board (
 
 UPDATE [테이블] SET [열] = '변경할값' WHERE [조건]
 UPDATE USERLIST SET userPremium = 1 WHERE userId = 2;
-출처: https://121202.tistory.com/28 [방구석:티스토리]
+UPDATE USERLIST SET userResign = 0 WHERE userId = 34;

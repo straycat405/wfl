@@ -1,7 +1,9 @@
 
 package com.wfl.mbtest.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,6 @@ public interface BoardService {
    public int delete(int no) throws Exception;
    
    public int updateViews(@Param("count") int count, @Param("no") int no) throws Exception;
-
-
+   
+   public ArrayList<Board> searchBoard(Map<String, Object> map);
 }

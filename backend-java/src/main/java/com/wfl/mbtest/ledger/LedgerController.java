@@ -304,29 +304,19 @@ public class LedgerController {
 			HttpServletRequest request,
 			HttpServletResponse response ) throws IOException {
 		
-		// 다운받은 데이터 셋업
-		System.out.println("엑셀 다운로드 시작");	
-		System.out.println("다운받을 가계부 유저 ID : " + request.getParameter("userId"));
-		System.out.println("다운받을 가계부 유저명 : " + request.getParameter("userName"));
-		System.out.println("조회 연도 : " + request.getParameter("year"));
-		System.out.println("조회 월 : " + request.getParameter("month"));
-		
+		//VO에 파싱후 받아온 request Parameter 저장
 		Spending spending = new Spending();
 		
 		String userName = request.getParameter("userName");
 		String userId = request.getParameter("userId");
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
-		
+
 		spending.setUserId(Integer.parseInt(userId));
 		spending.setYear(Integer.parseInt(year));
 		spending.setMonth(Integer.parseInt(month));
 		
-		System.out.println("-------------------------------------");
-		System.out.println(spending.getUserId());
-		System.out.println(spending.getYear());
-		System.out.println(spending.getMonth());
-		
+		//Mybatis를 통해 다운받을 레코드 ArrayList형태로 저장
 		ArrayList<Spending> monthList = ledgerService.getTotalSpending(spending);
 		
 		//엑셀파일 작성
@@ -336,10 +326,13 @@ public class LedgerController {
         Cell cell = null;
         int rowNum = 0;
         
-        // Header
+        // 헤더 (테이블의 th 개념, 엑셀 컬럼명)
         row = sheet.createRow(rowNum++);
+        // 세팅할 셀 지정
         cell = row.createCell(0);
+        // 셀에 데이터 세팅
         cell.setCellValue("연도");
+        // 이하 반복
         cell = row.createCell(1);
         cell.setCellValue("월");
         cell = row.createCell(2);
@@ -347,7 +340,7 @@ public class LedgerController {
         cell = row.createCell(3);
         cell.setCellValue("지출합계(원)");
         
-        // Body
+        // 바디에 조회한 레코드 배열 반복문으로 세팅
         for (int i=0; i<monthList.size(); i++) {
             row = sheet.createRow(rowNum++);
             cell = row.createCell(0);
@@ -367,7 +360,7 @@ public class LedgerController {
         response.setContentType("ms-vnd/excel");
         response.setHeader("Content-Disposition", encodedFileName);
 
-        // Excel File Output
+        // 파일 실질적 작성 후 response로 전달
         wb.write(response.getOutputStream());
         wb.close();
 		

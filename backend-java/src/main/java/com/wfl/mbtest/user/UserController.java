@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletRequest;
 
 // CrossOrigin 설정으로 5173 (리액트 기본 포트번호)에서 request및 response 송수신 허용
+
+
 @CrossOrigin(origins = "*")
 @RestController
 public class UserController {
@@ -100,15 +102,21 @@ public class UserController {
 		// 프론트의 localstorage 보안을 위한 pw 삭제
 		System.out.println(loginedUser.getUserRegDate());
 		
-		loginedUser.setUserPw(null);
-		loginedUser.setUserRegDate(null);
-		loginedUser.setUserModDate(null);
+		if (loginedUser.getUserResign() == 1) {
+			return "";
+		} else {
+			loginedUser.setUserPw(null);
+			loginedUser.setUserRegDate(null);
+			loginedUser.setUserModDate(null);
 		
-		System.out.println("로그인 시도 유저 이메일 :" + loginedUser);
+			System.out.println("로그인 시도 유저 이메일 :" + loginedUser);
 		
-		String json = new Gson().toJson(loginedUser);
+			String json = new Gson().toJson(loginedUser);
 		
-		return json;
+			return json;
+		}
+		
+
 	}
 	
 	//아이디 찾기
@@ -257,5 +265,33 @@ public class UserController {
 		String json = new Gson().toJson(searchedUser);
 		
 		return json;
+	}
+	
+	//회원 탈퇴
+	@GetMapping("/resignUser")
+	public String resignUser(@RequestParam ("userId") int userId) {
+		System.out.println("회원 탈퇴");
+		
+		int result = userService.resignUser(userId);
+		
+		if (result >= 1) {
+			return "회원 탈퇴 완료. 이용해주셔서 감사합니다.";
+		} else {
+			return "회원 탈퇴 처리중 오류 발생";
+		}
+	}
+	
+	//회원 복구 (관리자 기능)
+	@GetMapping("/unResignUser")
+	public String unResignUser(@RequestParam ("userId") int userId) {
+		System.out.println("탈퇴 회원 복구");
+		
+		int result = userService.unResignUser(userId);
+		
+		if (result >= 1) {
+			return "회원 복구 완료";
+		} else {
+			return "회원 복구 처리중 오류 발생";
+		}
 	}
 }

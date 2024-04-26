@@ -148,7 +148,7 @@ export default function Chart() {
     <>
       <div className="grid place-items-center  h-20">
         <button
-          className="flex bg-blue-300 w-28 justify-center"
+          className="flex  w-32 justify-center"
           onClick={() => setIsOpen("MONTH")}
         >
           월별 지출내역
