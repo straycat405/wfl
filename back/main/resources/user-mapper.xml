@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wfl.mbtest.user.UserMapper">
+	
+	<select id="getAll" resultType="user">
+        SELECT * FROM USERLIST
+	</select>
+	
+	<select id="getUser" resultType="user">
+		SELECT * FROM USERLIST WHERE userId=#{userId}
+	</select>
+	
+	<insert id="registerUser" parameterType="user"> 
+        INSERT INTO USERLIST (userEmail, userPw, userName, userNickname, userPhone) 
+        	VALUES (#{userEmail}, #{userPw}, #{userName}, #{userNickname}, #{userPhone}) 
+    </insert>
+    
+    <select id="emailCheck" parameterType="user" resultType="Integer">
+		SELECT COUNT(*) AS COUNT FROM USERLIST WHERE userEmail LIKE #{userEmail};
+	</select>
+	
+	<select id="loginCheck" parameterType="user" resultType="user">
+		SELECT * FROM USERLIST WHERE userEmail = #{userEmail} and userPw = #{userPw};
+	</select>
+	
+	<select id="findUserEmail" parameterType="user" resultType="user">
+		SELECT * FROM USERLIST WHERE userName = #{userName} and userPhone = #{userPhone};
+	</select>
+	
+	<select id="findUserPw" parameterType="user" resultType="user">
+		SELECT * FROM USERLIST WHERE userEmail = #{userEmail} and userName = #{userName} and userPhone = #{userPhone};
+	</select>
+	
+	<update id="resetPw" parameterType="user">
+		UPDATE USERLIST SET userPw=#{userPw},userModDate=TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:mm:ss')
+				 WHERE userEmail = #{userEmail} and userName = #{userName} and userPhone = #{userPhone}
+	</update>
+	
+	<update id="modifyUser" parameterType="user">
+		UPDATE USERLIST SET userEmail=#{userEmail}, userName=#{userName}, userNickname=#{userNickname},userPhone=#{userPhone} ,userModDate=TO_CHAR(CURRENT_TIMESTAMP, 'yyyy-MM-dd HH:MM:SS')
+				 WHERE userId = #{userId}
+	</update>
+	
+	<update id="setProfile" parameterType="user">
+		UPDATE USERLIST SET userProfile=#{userProfile} ,userModDate=NOW()
+				 WHERE userId = #{userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="Integer">
+		DELETE FROM USERLIST WHERE userId = #{userId}
+	</delete>
+	
+	<select id="searchUser" parameterType="HashMap" resultType="user">
+	
+			SELECT * FROM USERLIST
+			<choose>
+				<when test="value == null">
+				</when>
+				<when test="category == 'userId'">
+					WHERE userId LIKE '%'||#{value}||'%'
+				</when>
+				<when test="category == 'userEmail'">
+					WHERE userEmail LIKE '%'||#{value}||'%'
+				</when>
+				<when test="category == 'userName'">
+					WHERE userName LIKE '%'||#{value}||'%'
+				</when>
+				<when test="category == 'userNickname'">
+					WHERE userNickname LIKE '%'||#{value}||'%'
+				</when>
+			</choose>
+
+	</select>
+	
+	<select id="getByEmail" parameterType="String" resultType="user">
+		SELECT * FROM USERLIST WHERE userEmail LIKE #{email};
+	</select>
+	
+	<update id="resignUser" parameterType="Int">
+		UPDATE USERLIST SET userResign = 1
+				 WHERE userId = #{userId}
+	</update>
+	
+		<update id="unResignUser" parameterType="Int">
+		UPDATE USERLIST SET userResign = 0
+				 WHERE userId = #{userId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,104 @@
+.form-input {
+    width: calc(100% - 16px); /* 수평 스크롤바 고려하여 너비 조절 */
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #000; /* 각 행마다 선 */
+    outline: none;
+}
+
+.tab {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px auto;
+}
+
+.tab th,
+.tab td {
+    padding: 8px;
+    width: 25%;
+}
+
+.textarea-box {
+    border: 1px solid #000; 
+    border-radius: 4px; 
+    padding: 8px; 
+    resize: vertical; 
+}
+
+.con {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.but {
+    padding: 8px 16px;
+    border: 1px solid #000; 
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+.but-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px; 
+}
+
+.but-box .but {
+    margin: 0; 
+}
+
+/* button */
+.but {
+    background-color: white;
+    color: black;
+    border: 1px solid #000;
+}
+
+.but:hover {
+    background-color: lightgray; 
+}
+
+.but.update {
+    background-color: green; /* 수정 버튼의 배경색 변경 */
+    color: white;
+}
+
+.but.update:hover {
+    background-color: darkgreen;
+}
+
+
+
+/* .tab th {
+    background-color: lawngreen;
+    color: white;
+}
+
+.tab tr:hover {
+    background-color: lightgreen;
+} */
+
+.tab th:nth-child(1),
+.tab td:nth-child(1) {
+    width: 10%;
+}
+
+.tab th:nth-child(2),
+.tab td:nth-child(2) {
+    width: 50%;
+}
+
+.tab th:nth-child(3),
+.tab td:nth-child(3) {
+    width: 20%;
+}
+
+.tab th:nth-child(4),
+.tab td:nth-child(4) {
+    width: 20%;
+}

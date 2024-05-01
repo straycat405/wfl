@@ -1,0 +1,115 @@
+0424 기준 박동진
+
+//////////////////////
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '20'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//JDBC
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	//Spring-Boot
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//Mybatis 3.0.3
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	//Lombok
+	compileOnly 'org.projectlombok:lombok'
+	//SpringBootDevtools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//MariaDB driver
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	//Lombok Annotation
+	annotationProcessor 'org.projectlombok:lombok'
+	//test SB
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//test Mybatis
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	//ojdbc8
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	//mySQL connector
+	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+	//excel
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+	//Gson (List를 json으로)
+	implementation 'com.google.code.gson:gson:2.10.1'
+	//H2 DB
+	implementation 'com.h2database:h2'
+	// https://mvnrepository.com/artifact/org.json/json
+	implementation group: 'org.json', name: 'json', version: '20240303'
+	
+	
+}
+
+compileJava {
+   options.compilerArgs << '-parameters'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+////////////////////////
+
+//application.properties
+
+spring.application.name=wfltest-1
+## MariaDB
+#spring.datasource.driver=org.mariadb.jdbc.Driver
+#spring.datasource.url=jdbc:mariadb://127.0.0.1:3306/wfl_test
+#spring.datasource.username=root
+#spring.datasource.password=1234
+
+spring.web.cors.allowed-origins=http://localhost:5173
+
+#H2 DB
+spring.datasource.driver=org.h2.Driver
+#spring.datasource.url=jdbc:h2:tcp://localhost/~/wfltest
+# for laptop
+spring.datasource.url=jdbc:h2:tcp://localhost/~/wfltest
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+
+# Mybatis config
+mybatis.type-aliases-package=com.wfl.mbtest.user,com.wfl.mbtest.ledger,com.wfl.mbtest.board.dto;
+mybatis.mapper-locations:classpath:*.xml
+mybatis.configuration.map-underscore-to-camel-case=true
+logging.level.hello.itemservice.repository.mybatis=trace
+
+# excel,profile data source
+spring.servlet.multipart.max-file-size=2MB
+spring.servlet.multipart.max-request-size=10MB
+
+# kakao
+spring.thymeleaf.prefix=classpath:templates/
+spring.thymeleaf.check-template-location=true
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=HTML5
+spring.thymeleaf.cache=false
+spring.thymeleaf.order=0
+
+# naver
+naver.client.id=aV5SfXnMg2lxjVEoD3Hj
+naver.client.secret=lnbF9hNJT9
+naver.redirect.url=http://localhost:8080/naver/callback

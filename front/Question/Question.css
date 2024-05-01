@@ -1,0 +1,84 @@
+.Question-view-wrapper {
+  width: 800px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.Question-view-go-list-btn {
+  border: 0;
+  padding: 10px;
+  background-color: #97e580;
+}
+
+.Question-view-row {
+  margin: 20px 0;
+  display: flex;
+}
+
+.Question-view-row > label:first-child {
+  margin: 10px 0;
+  width: 40%;
+  font-weight: bold;
+}
+
+.Question-view-row > *:nth-child(2) {
+  margin: 10px 0;
+  width: 70%;
+}
+
+.common-table {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  border-spacing: 0;
+}
+
+common-table-header-column {
+  border-bottom: 1px solid #bffc8d;
+  padding: 0;
+  font-size: 20px;
+  padding: 10px 5px;
+  font-weight: bold;
+}
+
+.common-table-row:hover {
+  background-color: #bdf895;
+  cursor: pointer;
+}
+
+.common-table-column {
+  padding: 10px 5px;
+}
+
+.container {
+  width:80%;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width:100rem;
+  text-align: center;
+  border-radius: 6px;
+}
+.Insert-button-color {
+  background-color: #bdf895;
+  color: white;
+  padding: 10px 15px;
+  margin: 20px auto; /* 중앙 정렬 */
+  display: block; /* 블록 요소로 변경하여 가로 전체를 차지하도록 함 */
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.CommonTableColumn {
+  color: black; /* 링크의 기본 색상을 검정색으로 설정 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+}
+.Question-view-answer-form{
+  width: 100%;
+margin: 10px auto;
+text-align: center;
+}
+.Question-view-go-list-btn{
+  margin:5px;
+  border-radius: 5px;
+}
